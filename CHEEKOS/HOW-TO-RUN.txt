@@ -1,0 +1,70 @@
+CHEEKOS - how to run
+====================
+
+WHAT YOU NEED
+  Windows 10 or 11, 64-bit, with administrator rights.
+  ROB RUN installed.
+  Microsoft Edge WebView2 Runtime. Windows 11 and most Windows 10 PCs already
+  have it. If the menu window never appears, install the "WebView2 Runtime"
+  from Microsoft and start again.
+
+WHAT IS IN THIS FOLDER
+  RRX.exe           the overlay and its menu - one self-contained file
+  kd2.exe           maps the kernel driver, used once per boot
+  kernel-mode.sys   the driver image kd2 maps
+  MAP-DRIVER.bat    does the mapping for you
+  START.bat         starts the overlay
+  HOW-TO-RUN.txt    this file
+
+FIRST RUN - once per boot, in this order
+  1. Turn OFF Memory Integrity / Core Isolation:
+     Windows Security -> Device security -> Core isolation -> Memory integrity = Off
+     Reboot after changing it. kd2 cannot map an unsigned image while it is on.
+  2. Double-click MAP-DRIVER.bat and accept the administrator prompt.
+     It must end with: kd2.exe exit code: 0
+     Anything else means the driver is not mapped. Reboot and run it once more.
+  3. Start ROB RUN and get into a match.
+  4. Double-click START.bat and accept the administrator prompt.
+
+USING IT
+  Ctrl+F1      open / close the menu
+  Ctrl+Insert  overlay on / off
+  Ctrl+End     quit
+  Bare F1, Insert and End work too, in case another program owns the Ctrl ones.
+
+MENU
+  CAMERA tab
+    FOV changer - switch on, then set the angle with the slider or with [-] and
+                  [=] (5 degrees a press, 15 with Shift). [\] hands the camera
+                  back to the game. Vehicles keep their own blended camera, so
+                  flipping the switch off restores each camera separately.
+    Freecam     - switch on to detach at the player's eye. WASD fly, PageUp and
+                  PageDown for height, 7 and 9 turn, 8 and 0 tilt, hold Shift
+                  for triple rate, [ and ] set the speed (0.5 to 60 m/s).
+                  F3 does the same as the switch.
+  LOOT tab
+    Instant loot is the last switch on the page.
+
+SETTINGS
+  Saved to RRX.cfg next to RRX.exe when the overlay closes. Delete that file to
+  return to defaults.
+
+IF SOMETHING DOES NOT WORK
+  Footer says "waiting for game"
+      The game is not running, or the overlay did not get administrator rights.
+  Ctrl+F1 does nothing / no menu window
+      The WebView2 Runtime is missing - install it from Microsoft.
+      A wv2_error.log file in this folder names the exact failure.
+  Nothing attaches to the game
+      Run MAP-DRIVER.bat again, then check the key it publishes:
+          reg query "HKLM\SYSTEM\SmxRing"
+  MAP-DRIVER.bat does not reach exit code 0
+      Memory Integrity is still on, or the image is already resident. Reboot,
+      then run it exactly once.
+
+NOTES
+  The driver stays resident until you reboot. Re-running MAP-DRIVER.bat in the
+  same Windows session normally fails on purpose.
+  The overlay closes by itself when the game closes.
+  Keep every file in this folder together - RRX.exe and kd2.exe expect to find
+  kernel-mode.sys beside them.

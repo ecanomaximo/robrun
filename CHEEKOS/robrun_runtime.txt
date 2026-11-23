@@ -1,0 +1,12 @@
+# written by RRX; delete to force a rescan
+class_camera=0x294524C1100
+class_char=0x294520141C0
+class_world=0x29451FB9320
+pid=24520
+world=0x2973F277000
+camera=0x2973D250540
+fov_x100=6000
+scan_name_lo=0x13800000000
+scan_name_hi=0x13A00000000
+scan_inst_lo=0x13A00000000
+scan_inst_hi=0x13E00000000
