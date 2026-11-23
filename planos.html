@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="pt-BR">
+﻿<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Escolha seu plano — Cheat Rob Run</title>
-<meta name="description" content="Página de planos do Cheat Rob Run.">
+<title>Choose your plan — Cheat Rob Run</title>
+<meta name="description" content="Cheat Rob Run plans page.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Big+Shoulders+Display:wght@800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -127,7 +127,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* página de planos */
+/* página de Plans */
 .crumb{padding:28px 0 0;font-size:.88rem;color:var(--muted)}
 .crumb a{text-decoration:none}.crumb a:hover{color:var(--paper)}
 .product{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;padding:28px 0 80px;align-items:start}
@@ -200,15 +200,15 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 <body>
 
 <header>
-  <nav class="nav wrap" aria-label="Principal">
-    <a class="mark" href="index.html" aria-label="MR, início">MR</a>
+  <nav class="nav wrap" aria-label="Main">
+    <a class="mark" href="index.html" aria-label="MR, home">MR</a>
     <ul>
-      <li><a href="index.html#recursos">Recursos</a></li>
-      <li><a href="index.html#como">Como funciona</a></li>
+      <li><a href="index.html#recursos">Features</a></li>
+      <li><a href="index.html#como">How it works</a></li>
     </ul>
     <div class="nav-actions">
       <a class="icon-btn" href="#" aria-label="Discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.5 19.5 0 0 0-4.9 1.4C.6 9 0 13.5.3 18a19.8 19.8 0 0 0 6 3l1.3-2.1a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.6zM8.7 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4z"/></svg></a>
-      <a class="btn btn-main" href="#plano">Escolha seu plano</a>
+      <a class="btn btn-main" href="#plano">Choose your plan</a>
     </div>
   </nav>
 </header>
@@ -216,44 +216,44 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 
 <main>
   <div class="wrap">
-    <p class="crumb"><a href="index.html">Início</a> / Escolha seu plano</p>
+    <p class="crumb"><a href="index.html">Home</a> / Choose your plan</p>
 
     <div class="product" id="plano">
       <div>
-        <!-- VÍDEO DEMONSTRATIVO
+        <!-- Demo video
              Para trocar: apague o <div class="video-ph"> e cole no lugar, por exemplo,
              <video src="video.mp4" controls playsinline></video>
              ou o <iframe> do YouTube. -->
         <div class="video" id="video">
           <div class="video-ph">
             <span class="play"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-            <strong>Vídeo demonstrativo</strong>
-            <span>Em breve.</span>
+            <strong>Demo video</strong>
+            <span>Coming soon.</span>
           </div>
         </div>
         <div class="chips">
-          <span class="chip"><i></i>Windows 10 e 11</span>
+          <span class="chip"><i></i>Windows 10 & 11</span>
           <span class="chip"><i></i>ESP</span>
           <span class="chip"><i></i>Aimbot</span>
           <span class="chip"><i></i>Radar</span>
-          <span class="chip"><i></i>Configs salvas</span>
+          <span class="chip"><i></i>Saved configs</span>
         </div>
       </div>
 
       <aside class="buy" aria-labelledby="buy-title">
         <h1 id="buy-title">Cheat Rob Run</h1>
-        <p class="sub">ESP, aimbot e radar em um só menu</p>
-        <p>Escolha por quanto tempo quer acesso. Todos os planos liberam todos os recursos.</p>
+        <p class="sub">ESP, aimbot and radar in one menu</p>
+        <p>Choose how long you want access. All plans unlock every feature.</p>
 
-        <div class="seg" role="radiogroup" aria-label="Duração do plano" id="seg"></div>
+        <div class="seg" role="radiogroup" aria-label="Plan duration" id="seg"></div>
 
         <div class="price" aria-live="polite"><strong id="price">US$ —</strong><span id="per"></span></div>
         <p class="plan-desc" id="desc"></p>
         <ul id="perks"></ul>
 
-        <a class="btn btn-main" href="#">Comprar agora</a>
-        <p class="fine">Acesso liberado imediatamente após o pagamento.</p>
-        <div class="note"><b>Repare no seletor</b>Planos curtos parecem baratos, o vitalício parece "vantagem". O vitalício dura só até a conta ser banida ou o vendedor sumir.</div>
+        <a class="btn btn-main" href="#">Buy now</a>
+        <p class="fine">Access granted immediately after payment.</p>
+        <div class="note"><b>Repare no seletor</b>Plans curtos parecem baratos, o vitalício parece "vantagem". O vitalício dura só até a conta ser banida ou o vendedor sumir.</div>
       </aside>
     </div>
   </div>
@@ -261,43 +261,43 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   <section class="band" id="info" style="padding:72px 0">
     <div class="wrap">
       <div class="tabs" role="tablist" aria-label="Informações do produto">
-        <button role="tab" id="t-desc" aria-controls="p-desc" aria-selected="true">Descrição</button>
-        <button role="tab" id="t-uso" aria-controls="p-uso" aria-selected="false" tabindex="-1">Como usar</button>
-        <button role="tab" id="t-info" aria-controls="p-info" aria-selected="false" tabindex="-1">Informações adicionais</button>
+        <button role="tab" id="t-desc" aria-controls="p-desc" aria-selected="true">Description</button>
+        <button role="tab" id="t-uso" aria-controls="p-uso" aria-selected="false" tabindex="-1">How to use</button>
+        <button role="tab" id="t-info" aria-controls="p-info" aria-selected="false" tabindex="-1">Additional info</button>
       </div>
 
       <div class="panel" role="tabpanel" id="p-desc" aria-labelledby="t-desc">
-        <h3>Um menu para Cheat Rob Run</h3>
-        <p>O Cheat Rob Run reúne ESP, aimbot e radar em um único menu. Uma chave libera todos os recursos, e as configurações ficam salvas entre as partidas.</p>
-        <h3>Recursos incluídos</h3>
+        <h3>One menu for Cheat Rob Run</h3>
+        <p>Cheat Rob Run brings ESP, aimbot and radar together in a single menu. One key unlocks every feature, and your settings are saved between matches.</p>
+        <h3>Included features</h3>
         <ul>
-          <li>ESP de jogadores, itens e pontos do mapa</li>
-          <li>Aimbot com campo de visão, suavização e predição</li>
-          <li>Radar com jogadores, veículos e loot</li>
-          <li>Configurações salvas</li>
+          <li>Player, item and map point ESP</li>
+          <li>Aimbot with FOV, smoothing and prediction</li>
+          <li>Radar with players, vehicles and loot</li>
+          <li>Saved settings</li>
         </ul>
-        <div class="note" style="margin-top:24px;max-width:720px"><b>O que a descrição não diz</b>Cada recurso tira de alguém a chance de jogar de igual para igual. A página fala só do lado de quem compra.</div>
+        <div class="note" style="margin-top:24px;max-width:720px"><b>O que a Description não diz</b>Cada recurso tira de alguém a chance de jogar de igual para igual. A página fala só do lado de quem compra.</div>
       </div>
 
       <div class="panel" role="tabpanel" id="p-uso" aria-labelledby="t-uso" hidden>
-        <h3>Como usar</h3>
+        <h3>How to use</h3>
         <ul>
-          <li>Escolha o plano e receba a chave de acesso.</li>
-          <li>Abra Cheat Rob Run em modo janela ou sem bordas.</li>
-          <li>Abra o programa, entre com a chave e ative os recursos no menu.</li>
-          <li>Salve sua configuração para as próximas partidas.</li>
+          <li>Choose your plan and receive your access key.</li>
+          <li>Open Rob Run in windowed or borderless mode.</li>
+          <li>Open the software, enter your key and enable features in the menu.</li>
+          <li>Save your config for future matches.</li>
         </ul>
-        <div class="note" style="margin-top:24px;max-width:720px"><b>O que o passo a passo esconde</b>Programas assim costumam pedir para desativar o antivírus e rodar como administrador. Isso entrega o computador inteiro a um software anônimo.</div>
+        <div class="note" style="margin-top:24px;max-width:720px"><b>O que o passo a passo esconde</b>Programas assim costumam pedir para desativar o antivírus e rodar como administrador. Isso Delivery o computador inteiro a um software anônimo.</div>
       </div>
 
       <div class="panel" role="tabpanel" id="p-info" aria-labelledby="t-info" hidden>
         <table class="spec">
-          <tr><th scope="row">Jogo</th><td>Cheat Rob Run</td></tr>
-          <tr><th scope="row">Plataforma</th><td>PC</td></tr>
-          <tr><th scope="row">Sistema</th><td>Windows 10 e 11</td></tr>
-          <tr><th scope="row">Processador</th><td>Intel e AMD</td></tr>
-          <tr><th scope="row">Planos</th><td>7 dias, 30 dias e Vitalício</td></tr>
-          <tr><th scope="row">Entrega</th><td>Imediata, via chave de acesso</td></tr>
+          <tr><th scope="row">Game</th><td>Cheat Rob Run</td></tr>
+          <tr><th scope="row">Platform</th><td>PC</td></tr>
+          <tr><th scope="row">System</th><td>Windows 10 & 11</td></tr>
+          <tr><th scope="row">Processor</th><td>Intel & AMD</td></tr>
+          <tr><th scope="row">Plans</th><td>7 days, 30 days and Lifetime</td></tr>
+          <tr><th scope="row">Delivery</th><td>Instant, via access key</td></tr>
         </table>
       </div>
     </div>
@@ -305,66 +305,66 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 
   <section id="lista" style="padding:88px 0">
     <div class="wrap">
-      <h2>Lista completa de recursos</h2>
-      <p class="lead">Todos os planos liberam todos os recursos abaixo.</p>
+      <h2>Full feature list</h2>
+      <p class="lead">Todos os Plans liberam todos os recursos abaixo.</p>
       <div class="cats">
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/></svg></span>
           <h3>Aimbot</h3>
-          <ul><li>Ativar e desativar por tecla</li><li>Círculo do campo de visão na tela</li><li>Escolha do ponto do corpo</li><li>Prioridade de alvo</li><li>Suavização do movimento</li><li>Predição para alvos em movimento</li><li>Distância máxima de mira</li><li>Ignorar aliados e derrubados</li></ul>
+          <ul><li>Enable/disable by hotkey</li><li>On-screen FOV circle</li><li>Body hitbox selection</li><li>Target priority</li><li>Movement smoothing</li><li>Prediction for moving targets</li><li>Max aim distance</li><li>Ignore teammates and downed</li></ul>
         </article>
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V3h4M17 3h4v4M21 17v4h-4M7 21H3v-4"/><path d="M5 12s2.6-4.5 7-4.5 7 4.5 7 4.5-2.6 4.5-7 4.5S5 12 5 12z"/><circle cx="12" cy="12" r="2"/></svg></span>
-          <h3>Visuais: ESP do jogador</h3>
-          <ul><li>Caixa de canto, 2D e preenchida</li><li>Esqueleto</li><li>Linhas até o jogador</li><li>Direção do olhar</li><li>Nome e grupo</li><li>Arma em uso</li><li>Barras de vida e colete</li><li>Agachado, correndo ou derrubado</li><li>Jogadores escondidos</li><li>Checagem de visibilidade</li></ul>
+          <h3>Visuals: Player ESP</h3>
+          <ul><li>Corner box, 2D and filled</li><li>Skeleton</li><li>Lines to player</li><li>Look direction</li><li>Name and squad</li><li>Weapon in use</li><li>Health and armor bars</li><li>Crouching, running or downed</li><li>Hidden players</li><li>Visibility check</li></ul>
         </article>
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h15l2-2h1v5h-6l-1 2h-3l-1 4H6l1-4H3z"/></svg></span>
-          <h3>Arma</h3>
-          <ul><li>Controle de recuo</li><li>Velocidade de compensação</li><li>Disparo automático</li><li>Tiro rápido em tecla extra</li></ul>
+          <h3>Weapon</h3>
+          <ul><li>Recoil control</li><li>Compensation speed</li><li>Auto fire</li><li>Rapid fire on extra key</li></ul>
         </article>
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
-          <h3>Marcadores do mapa</h3>
-          <ul><li>Portas e chaves</li><li>Cofres</li><li>Pontos de interesse</li><li>Caixas e armários</li><li>Dinheiro e loot</li></ul>
+          <h3>Map markers</h3>
+          <ul><li>Doors and keys</li><li>Vaults</li><li>Points of interest</li><li>Boxes and lockers</li><li>Cash and loot</li></ul>
         </article>
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6.5-6.5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></span>
           <h3>Radar</h3>
-          <ul><li>Minimapa ligado ou desligado</li><li>Tamanho e alcance</li><li>Girar com a câmera</li><li>Cone de visão dos jogadores</li><li>Jogadores, itens e dinheiro</li><li>Transparência do fundo</li></ul>
+          <ul><li>Minimap on/off</li><li>Size and range</li><li>Rotate with camera</li><li>Player vision cone</li><li>Players, items and cash</li><li>Background transparency</li></ul>
         </article>
         <article class="cat">
           <span class="cat-ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
-          <h3>Menu e configurações</h3>
-          <ul><li>Um menu para todos os recursos</li><li>Configurações salvas</li><li>Teclas personalizáveis</li><li>Distância máxima do ESP</li></ul>
+          <h3>Menu and settings</h3>
+          <ul><li>One menu for all features</li><li>Saved settings</li><li>Customizable hotkeys</li><li>Max ESP distance</li></ul>
         </article>
       </div>
-      <div class="note" style="margin-top:32px;max-width:720px"><b>Repare no tamanho da lista</b>Cada linha é uma informação ou habilidade que o jogo reserva para quem joga limpo. Quanto maior a lista, menos sobra do jogo para os outros.</div>
+      <div class="note" style="margin-top:32px;max-width:720px"><b>Repare no tamanho da lista</b>Cada linha é uma informação ou habilidade que o Game reserva para quem joga limpo. Quanto maior a lista, menos sobra do Game para os outros.</div>
     </div>
   </section>
 
-  <section id="requisitos" style="padding:88px 0">
+  <section id="Requirements" style="padding:88px 0">
     <div class="wrap">
-      <h2>Requisitos</h2>
+      <h2>Requirements</h2>
       <div class="req">
-        <div><span>Sistema</span><strong>Windows 10 ou 11</strong></div>
-        <div><span>Processador</span><strong>Intel ou AMD</strong></div>
-        <div><span>Jogo</span><strong>Cheat Rob Run no PC</strong></div>
-        <div><span>Modo de tela</span><strong>Janela ou sem bordas</strong></div>
+        <div><span>System</span><strong>Windows 10 or 11</strong></div>
+        <div><span>Processor</span><strong>Intel or AMD</strong></div>
+        <div><span>Game</span><strong>Rob Run on PC</strong></div>
+        <div><span>Display mode</span><strong>Windowed or borderless</strong></div>
       </div>
     </div>
   </section>
 
   <section id="avaliacoes" class="band" style="padding:88px 0">
     <div class="wrap">
-      <h2>Avaliações</h2>
+      <h2>Reviews</h2>
       
       <div class="empty">
         <span class="stars" aria-hidden="true">☆☆☆☆☆</span>
-        <strong>0 avaliações</strong>
-        <p>Ainda não há avaliações para este produto.</p>
+        <strong>0 reviews</strong>
+        <p>Ainda não há reviews para este produto.</p>
       </div>
-      <div class="note" style="margin-top:32px;max-width:720px"><b>Sobre avaliações em sites de cheat</b>Ficam no próprio site do vendedor, sem verificação. Quem foi banido raramente volta para avaliar.</div>
+      <div class="note" style="margin-top:32px;max-width:720px"><b>Sobre reviews em sites de cheat</b>Ficam no próprio site do vendedor, sem verificação. Quem foi banido raramente volta para avaliar.</div>
     </div>
   </section>
 </main>
@@ -373,11 +373,11 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   <div class="wrap">
     <div class="help-card">
       <div>
-        <span class="kicker">Ficou com dúvida?</span>
-        <h2 id="help-title">Fale com a equipe no Discord.</h2>
-        <p>Dúvidas sobre os recursos, a instalação ou as atualizações de Cheat Rob Run: chame no Discord e a gente responde.</p>
+        <span class="kicker">Got a question?</span>
+        <h2 id="help-title">Talk to the team on Discord.</h2>
+        <p>Questions about features, installation or updates: reach out on Discord and we will get back to you.</p>
       </div>
-      <a class="btn btn-light" href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.5 19.5 0 0 0-4.9 1.4C.6 9 0 13.5.3 18a19.8 19.8 0 0 0 6 3l1.3-2.1a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.6zM8.7 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4z"/></svg>Entrar no Discord</a>
+      <a class="btn btn-light" href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.5 19.5 0 0 0-4.9 1.4C.6 9 0 13.5.3 18a19.8 19.8 0 0 0 6 3l1.3-2.1a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.6zM8.7 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4z"/></svg>Join Discord</a>
     </div>
   </div>
 </section>
@@ -387,13 +387,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     <div class="foot">
       <div class="foot-brand">
         <strong>Cheat Rob Run</strong>
-        <p>ESP, aimbot e radar hack em um só menu para Cheat Rob Run.</p>
+        <p>ESP, aimbot and radar hack in one menu for Rob Run.</p>
       </div>
-      <nav aria-label="Rodapé">
+      <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html#recursos">Recursos</a></li>
-          <li><a href="index.html#como">Como funciona</a></li>
-          <li><a href="#plano">Escolha seu plano</a></li>
+          <li><a href="index.html#recursos">Features</a></li>
+          <li><a href="index.html#como">How it works</a></li>
+          <li><a href="#plano">Choose your plan</a></li>
           <li><a href="#">Discord</a></li>
         </ul>
       </nav>
@@ -415,11 +415,11 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' });
   }));
 
-  // ===== PLANOS: edite aqui =====
+  // ===== Plans: edite aqui =====
   const PLANS = [
-    { id: '7',   label: '7 dias',    price: 13,   oldPrice: null,   per: 'por 7 dias',       desc: 'Para conhecer todos os recursos por uma semana.', perks: ['Todos os recursos', 'Atualizações no período', 'Suporte no Discord'] },
-    { id: '30',  label: '30 dias',   price: 27.90, oldPrice: null,  per: 'por 30 dias',      desc: 'Um mês inteiro de acesso, com todos os recursos.', perks: ['Todos os recursos', 'Atualizações no período', 'Suporte no Discord'] },
-    { id: 'vit', label: 'Vitalício', price: 120,  oldPrice: 139.99, per: 'pagamento único',  desc: 'Acesso sem data para acabar, enquanto o produto existir.', perks: ['Todos os recursos', 'Todas as atualizações', 'Suporte no Discord'] },
+    { id: '7',   label: '7 days',    price: 13,   oldPrice: null,   per: 'for 7 days',       desc: 'Try every feature for a full week.', perks: ['All features', 'Updates during the period', 'Discord support'] },
+    { id: '30',  label: '30 days',   price: 27.90, oldPrice: null,  per: 'for 30 days',      desc: 'A full month of access with every feature unlocked.', perks: ['All features', 'Updates during the period', 'Discord support'] },
+    { id: 'vit', label: 'Lifetime', price: 120,  oldPrice: 139.99, per: 'one-time payment',  desc: 'Unlimited access, as long as the product exists.', perks: ['All features', 'All updates', 'Discord support'] },
   ];
   const fmt = v => v == null ? 'US$ —' : 'US$ ' + v.toLocaleString('en-US', { minimumFractionDigits: 0 });
   const fmtDec = v => 'US$ ' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
