@@ -1,23 +1,25 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Criação do site limpo `mrcheats` no Firebase Hosting e deploy de produção).
+- **Status:** Concluído (Geração e configuração de favicon e logo oficial MR na aba do navegador e no cabeçalho das páginas).
 
 ## O que foi feito
-1. **Otimização da URL no Firebase Hosting:**
-   - Criado o site limpo `mrcheats` dentro do projeto Firebase via CLI (`firebase hosting:sites:create mrcheats`).
-   - Atualizado o [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) apontando `"site": "mrcheats"`.
-   - Realizado deploy de todos os arquivos web para o novo site.
-   - Verificado status HTTP 200 OK na nova URL.
+1. **Geração do Favicon Multi-resolução:**
+   - Criados `favicon.ico` (resoluções 16x16, 32x32, 48x48 e 64x64) e `favicon.png` a partir da logo oficial MR.
+2. **Atualização nos Arquivos HTML:**
+   - Adicionadas as tags `<link rel="icon">`, `<link rel="apple-touch-icon">` e SVG nos arquivos [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html) e [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
+   - Atualizado o ícone da barra de navegação superior (`.mark`) com a logo oficial em alta resolução.
+3. **Deploy no Firebase Hosting:**
+   - Novo deploy concluído com sucesso no site `mrcheats`.
+   - Favicon respondendo com HTTP 200 OK em https://mrcheats.web.app/favicon.ico.
 
 ## Onde parou
-- Site publicado com URL oficial limpa.
+- Favicon e logotipo no ar em todas as páginas do site.
 
 ## Contexto Atual
-- Nova URL oficial no ar:
-  - **Site Principal:** https://mrcheats.web.app
-  - **Página de Planos:** https://mrcheats.web.app/planos
-  - **Espelho alternativo:** https://mrcheats.firebaseapp.com
+- URL com Favicon e Logo oficial:
+  - https://mrcheats.web.app
+  - https://mrcheats.web.app/planos
 
 ## Próximos Passos
-- Nenhuma pendência. Caso deseje conectar um domínio próprio (.com / .com.br), basta adicionar o domínio personalizado no painel do Firebase Hosting.
+- Nenhuma pendência.
