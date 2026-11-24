@@ -9,7 +9,6 @@
       "**/node_modules/**",
       "CHEEKOS/**",
       "clips mrcheats/**",
-      "*.zip",
       "*.bat",
       "*.txt",
       "*.py",

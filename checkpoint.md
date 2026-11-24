@@ -1,25 +1,34 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Geração e configuração de favicon e logo oficial MR na aba do navegador e no cabeçalho das páginas).
+- **Status:** Concluído (Criação e deploy do Bot de Entrega e Atendimento integrado ao site com download automático do zip e entrega de keys).
 
 ## O que foi feito
-1. **Geração do Favicon Multi-resolução:**
-   - Criados `favicon.ico` (resoluções 16x16, 32x32, 48x48 e 64x64) e `favicon.png` a partir da logo oficial MR.
-2. **Atualização nos Arquivos HTML:**
-   - Adicionadas as tags `<link rel="icon">`, `<link rel="apple-touch-icon">` e SVG nos arquivos [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html) e [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
-   - Atualizado o ícone da barra de navegação superior (`.mark`) com a logo oficial em alta resolução.
+1. **Página do Bot de Atendimento & Entrega ([chat.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/chat.html)):**
+   - Desenvolvida interface de chat com tema escuro/verde oficial MR, avatar verificado e status online.
+   - Fluxo inteligente com animação de digitação:
+     - Detecta o plano comprado via parâmetro da URL (`?plano=7d`, `?plano=30d`, `?plano=vit`) ou pergunta ao usuário via botões rápidos.
+     - Entrega o card de liberação com a **Chave de Ativação** única e botão "Copiar" com feedback instantâneo.
+     - Botão de **download direto do pacote `MR_RobRun_Client.zip`**.
+     - Passo a passo de ativação (`START.bat`, execução como Admin, inserção da key).
+     - Campo de texto interativo com IA simples para responder dúvidas frequentes (como ativar, suporte, Discord, etc.).
+2. **Hospedagem do Pacote Cliente:**
+   - Ajustado [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) para incluir arquivos `.zip`.
+   - `MR_RobRun_Client.zip` (728 KB) hospedado diretamente no Firebase Hosting para download imediato.
 3. **Deploy no Firebase Hosting:**
-   - Novo deploy concluído com sucesso no site `mrcheats`.
-   - Favicon respondendo com HTTP 200 OK em https://mrcheats.web.app/favicon.ico.
+   - Deploy realizado com sucesso para o site `mrcheats`.
+   - Testadas e validadas com HTTP 200:
+     - Chat: https://mrcheats.web.app/chat
+     - Download Zip: https://mrcheats.web.app/MR_RobRun_Client.zip
 
 ## Onde parou
-- Favicon e logotipo no ar em todas as páginas do site.
+- Sistema de entrega por bot no site totalmente operacional no ar.
 
 ## Contexto Atual
-- URL com Favicon e Logo oficial:
-  - https://mrcheats.web.app
-  - https://mrcheats.web.app/planos
+- URLs de Redirecionamento configuráveis no Stripe:
+  - 7 Dias: `https://mrcheats.web.app/chat?plano=7d`
+  - 30 Dias: `https://mrcheats.web.app/chat?plano=30d`
+  - Vitalício: `https://mrcheats.web.app/chat?plano=vit`
 
 ## Próximos Passos
-- Nenhuma pendência.
+- Configurar o redirecionamento pós-compra nos 3 links do painel do Stripe e realizar o teste do checkout.
