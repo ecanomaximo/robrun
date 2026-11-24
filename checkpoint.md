@@ -1,34 +1,33 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Criação e deploy do Bot de Entrega e Atendimento integrado ao site com download automático do zip e entrega de keys).
+- **Status:** Concluído (Substituição e atualização de todos os logotipos oficiais e favicons pela nova identidade visual com mira verde MR CHEATS).
 
 ## O que foi feito
-1. **Página do Bot de Atendimento & Entrega ([chat.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/chat.html)):**
-   - Desenvolvida interface de chat com tema escuro/verde oficial MR, avatar verificado e status online.
-   - Fluxo inteligente com animação de digitação:
-     - Detecta o plano comprado via parâmetro da URL (`?plano=7d`, `?plano=30d`, `?plano=vit`) ou pergunta ao usuário via botões rápidos.
-     - Entrega o card de liberação com a **Chave de Ativação** única e botão "Copiar" com feedback instantâneo.
-     - Botão de **download direto do pacote `MR_RobRun_Client.zip`**.
-     - Passo a passo de ativação (`START.bat`, execução como Admin, inserção da key).
-     - Campo de texto interativo com IA simples para responder dúvidas frequentes (como ativar, suporte, Discord, etc.).
-2. **Hospedagem do Pacote Cliente:**
-   - Ajustado [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) para incluir arquivos `.zip`.
-   - `MR_RobRun_Client.zip` (728 KB) hospedado diretamente no Firebase Hosting para download imediato.
-3. **Deploy no Firebase Hosting:**
-   - Deploy realizado com sucesso para o site `mrcheats`.
-   - Testadas e validadas com HTTP 200:
-     - Chat: https://mrcheats.web.app/chat
-     - Download Zip: https://mrcheats.web.app/MR_RobRun_Client.zip
+1. **Processamento da Nova Imagem Oficial:**
+   - A imagem enviada (retículo/mira circular com texto centralizado `MR CHEATS`) foi convertida e otimizada em múltiplas resoluções:
+     - `logo_mr.png` (1024x1024 em alta resolução).
+     - `logo_mr_512.png` (512x512).
+     - `logo_mr_256.png` (256x256).
+     - `logo_mr_128.png` (128x128).
+     - `favicon.ico` (multi-tamanhos: 16x16, 32x32, 48x48, 64x64).
+     - `favicon.png` (64x64).
+     - `logo_mr.svg` (com encapsulamento vetorial).
+2. **Atualização nas Páginas:**
+   - [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html): ícone da barra de navegação e favicon atualizados.
+   - [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html): ícone da barra de navegação e favicon atualizados.
+   - [chat.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/chat.html): avatar do robô de entrega no cabeçalho e em cada bolha de mensagem atualizado com a nova logo.
+3. **Deploy de Produção:**
+   - Publicado com sucesso no Firebase Hosting (`mrcheats.web.app`).
 
 ## Onde parou
-- Sistema de entrega por bot no site totalmente operacional no ar.
+- Nova logo oficial aplicada em todas as páginas, favicons e avatar do bot de entrega.
 
 ## Contexto Atual
-- URLs de Redirecionamento configuráveis no Stripe:
-  - 7 Dias: `https://mrcheats.web.app/chat?plano=7d`
-  - 30 Dias: `https://mrcheats.web.app/chat?plano=30d`
-  - Vitalício: `https://mrcheats.web.app/chat?plano=vit`
+- URL com a nova identidade visual:
+  - https://mrcheats.web.app
+  - https://mrcheats.web.app/planos
+  - https://mrcheats.web.app/chat
 
 ## Próximos Passos
-- Configurar o redirecionamento pós-compra nos 3 links do painel do Stripe e realizar o teste do checkout.
+- Nenhuma pendência imediata.

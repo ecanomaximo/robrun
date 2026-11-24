@@ -99,7 +99,7 @@ main{flex:1;display:flex;flex-direction:column;max-width:800px;width:100%;margin
 <header>
   <div class="header-wrap">
     <div class="bot-profile">
-      <div class="bot-avatar">MR</div>
+      <div class="bot-avatar" style="border:none;overflow:hidden"><img src="logo_mr_128.png" alt="MR CHEATS" width="42" height="42" style="border-radius:12px;display:block"></div>
       <div class="bot-info">
         <strong>MR Bot • Entrega Oficial</strong>
         <span><i></i>Online agora</span>
@@ -161,7 +161,7 @@ function appendMsg(html, sender = 'bot') {
   const row = document.createElement('div');
   row.className = `msg ${sender}`;
   if (sender === 'bot') {
-    row.innerHTML = `<div class="msg-avatar">MR</div><div class="msg-bubble">${html}</div>`;
+    row.innerHTML = `<div class="msg-avatar" style="border:none;overflow:hidden"><img src="logo_mr_128.png" alt="MR" width="32" height="32" style="border-radius:9px;display:block"></div><div class="msg-bubble">${html}</div>`;
   } else {
     row.innerHTML = `<div class="msg-bubble">${html}</div>`;
   }
@@ -174,7 +174,7 @@ function showTyping(ms = 800) {
     const t = document.createElement('div');
     t.className = 'msg bot';
     t.id = 'typing-msg';
-    t.innerHTML = `<div class="msg-avatar">MR</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    t.innerHTML = `<div class="msg-avatar" style="border:none;overflow:hidden"><img src="logo_mr_128.png" alt="MR" width="32" height="32" style="border-radius:9px;display:block"></div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
     chatBox.appendChild(t);
     chatBox.scrollTop = chatBox.scrollHeight;
     setTimeout(() => {
