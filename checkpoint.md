@@ -1,24 +1,23 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Publicação e deploy completo do site no Firebase Hosting com sucesso).
+- **Status:** Concluído (Criação do site limpo `mrcheats` no Firebase Hosting e deploy de produção).
 
 ## O que foi feito
-1. **Configuração e Vínculo com Firebase Hosting:**
-   - Criados [.firebaserc](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/.firebaserc) com o projeto `mrcheats-f44af` e [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) configurado com `cleanUrls: true` e filtros de exclusão seguros (`ignore`).
-2. **Deploy de Produção:**
-   - Realizado deploy de todos os arquivos web via Firebase CLI (`npx firebase-tools deploy --only hosting`).
-   - Verificado o funcionamento dos endpoints com resposta HTTP 200 OK:
-     - Home: https://mrcheats-f44af.web.app/
-     - Planos: https://mrcheats-f44af.web.app/planos (e https://mrcheats-f44af.web.app/planos.html)
+1. **Otimização da URL no Firebase Hosting:**
+   - Criado o site limpo `mrcheats` dentro do projeto Firebase via CLI (`firebase hosting:sites:create mrcheats`).
+   - Atualizado o [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) apontando `"site": "mrcheats"`.
+   - Realizado deploy de todos os arquivos web para o novo site.
+   - Verificado status HTTP 200 OK na nova URL.
 
 ## Onde parou
-- Site publicado e 100% operacional no Firebase Hosting.
+- Site publicado com URL oficial limpa.
 
 ## Contexto Atual
-- Novas URLs públicas de produção:
-  - **Site Principal:** https://mrcheats-f44af.web.app
-  - **Página de Planos:** https://mrcheats-f44af.web.app/planos
+- Nova URL oficial no ar:
+  - **Site Principal:** https://mrcheats.web.app
+  - **Página de Planos:** https://mrcheats.web.app/planos
+  - **Espelho alternativo:** https://mrcheats.firebaseapp.com
 
 ## Próximos Passos
-- Nenhuma pendência.
+- Nenhuma pendência. Caso deseje conectar um domínio próprio (.com / .com.br), basta adicionar o domínio personalizado no painel do Firebase Hosting.
