@@ -1,22 +1,19 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Otimização da responsividade mobile da página e do showcase de telas do menu).
+- **Status:** Concluído (Correção drástica da altura e escala do showcase do menu no mobile com `height: 165px !important`, `object-fit: contain` e ocultação de miniaturas redundantes).
 
 ## O que foi feito
-1. **Ajuste de Escala e Responsividade Mobile em `planos.html`:**
-   - Adicionados breakpoints específicos para dispositivos móveis (`@media (max-width: 768px)` e `@media (max-width: 480px)`):
-     - Redução do espaçamento interno do showcase do menu (`padding: 12px 10px` em telas pequenas).
-     - Redução proporcional do tamanho das fontes do título, subtítulo e abas do menu.
-     - Redimensionamento e otimização das miniaturas (de 76px para 44px-54px), ocupando muito menos altura vertical na tela.
-     - Ajuste dos chips de recursos e da caixa de compra (`.buy`), tornando o layout muito mais compacto e confortável no smartphone.
-   - Adicionada rolagem suave automática (`scrollIntoView`) ao selecionar abas ou miniaturas para centralizar o item ativo.
-   - Implementado suporte nativo a gestos de arrasto lateral (touch swipe) na imagem principal no mobile para alternar entre as telas do menu.
+1. **Redução Efetiva do Tamanho da Imagem e Showcase no Celular:**
+   - Forçada a altura compacta da caixa do menu para celular (`height: 190px` em tablets/telas médias e `height: 165px !important` em smartphones até 480px) com `aspect-ratio: auto !important`.
+   - Aplicado `object-fit: contain !important` nas imagens do menu para que a janela inteira (975x638) apareça completa, proporcional, perfeitamente nítida e centralizada sem cortar o rodapé nem esticar verticalmente.
+   - Ocultadas as miniaturas duplicadas (`.menu-thumbs { display: none !important }`) no mobile, eliminando altura vertical desnecessária e deixando apenas as abas limpas e fáceis de tocar.
+   - Adicionadas diretivas `Cache-Control: no-cache` e meta tags no `<head>` de `planos.html` para evitar que navegadores mobile sirvam CSS antigo em cache.
 2. **Sincronização no GitHub:**
    - Alterações commitadas e enviadas ao GitHub Pages no branch `main`.
 
 ## Onde parou
-- Layout mobile totalmente ajustado, compacto e publicado no GitHub Pages.
+- Ajuste de altura e escala publicado no GitHub Pages.
 
 ## Contexto Atual
 - URL de publicação: https://ecanomaximo.github.io/robrun/planos.html
