@@ -1,22 +1,24 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Correção drástica da altura e escala do showcase do menu no mobile com `height: 165px !important`, `object-fit: contain` e ocultação de miniaturas redundantes).
+- **Status:** Concluído (Publicação e deploy completo do site no Firebase Hosting com sucesso).
 
 ## O que foi feito
-1. **Redução Efetiva do Tamanho da Imagem e Showcase no Celular:**
-   - Forçada a altura compacta da caixa do menu para celular (`height: 190px` em tablets/telas médias e `height: 165px !important` em smartphones até 480px) com `aspect-ratio: auto !important`.
-   - Aplicado `object-fit: contain !important` nas imagens do menu para que a janela inteira (975x638) apareça completa, proporcional, perfeitamente nítida e centralizada sem cortar o rodapé nem esticar verticalmente.
-   - Ocultadas as miniaturas duplicadas (`.menu-thumbs { display: none !important }`) no mobile, eliminando altura vertical desnecessária e deixando apenas as abas limpas e fáceis de tocar.
-   - Adicionadas diretivas `Cache-Control: no-cache` e meta tags no `<head>` de `planos.html` para evitar que navegadores mobile sirvam CSS antigo em cache.
-2. **Sincronização no GitHub:**
-   - Alterações commitadas e enviadas ao GitHub Pages no branch `main`.
+1. **Configuração e Vínculo com Firebase Hosting:**
+   - Criados [.firebaserc](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/.firebaserc) com o projeto `mrcheats-f44af` e [firebase.json](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/firebase.json) configurado com `cleanUrls: true` e filtros de exclusão seguros (`ignore`).
+2. **Deploy de Produção:**
+   - Realizado deploy de todos os arquivos web via Firebase CLI (`npx firebase-tools deploy --only hosting`).
+   - Verificado o funcionamento dos endpoints com resposta HTTP 200 OK:
+     - Home: https://mrcheats-f44af.web.app/
+     - Planos: https://mrcheats-f44af.web.app/planos (e https://mrcheats-f44af.web.app/planos.html)
 
 ## Onde parou
-- Ajuste de altura e escala publicado no GitHub Pages.
+- Site publicado e 100% operacional no Firebase Hosting.
 
 ## Contexto Atual
-- URL de publicação: https://ecanomaximo.github.io/robrun/planos.html
+- Novas URLs públicas de produção:
+  - **Site Principal:** https://mrcheats-f44af.web.app
+  - **Página de Planos:** https://mrcheats-f44af.web.app/planos
 
 ## Próximos Passos
-- Nenhuma pendência imediata.
+- Nenhuma pendência.

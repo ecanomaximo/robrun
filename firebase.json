@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": ".",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "CHEEKOS/**",
+      "clips mrcheats/**",
+      "*.zip",
+      "*.bat",
+      "*.txt",
+      "*.py",
+      "checkpoint.md"
+    ]
+  }
+}
