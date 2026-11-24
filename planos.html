@@ -251,7 +251,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
         <p class="plan-desc" id="desc"></p>
         <ul id="perks"></ul>
 
-        <a class="btn btn-main" href="#">Buy now</a>
+        <a class="btn btn-main" id="buy-btn" href="#" target="_blank" rel="noopener">Buy now</a>
         <p class="fine">Access granted immediately after payment.</p>
         <div class="note"><b>Repare no seletor</b>Plans curtos parecem baratos, o vitalício parece "vantagem". O vitalício dura só até a conta ser banida ou o vendedor sumir.</div>
       </aside>
@@ -417,13 +417,14 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 
   // ===== Plans: edite aqui =====
   const PLANS = [
-    { id: '7',   label: '7 days',    price: 13,   oldPrice: null,   per: 'for 7 days',       desc: 'Try every feature for a full week.', perks: ['All features', 'Updates during the period', 'Discord support'] },
-    { id: '30',  label: '30 days',   price: 27.90, oldPrice: null,  per: 'for 30 days',      desc: 'A full month of access with every feature unlocked.', perks: ['All features', 'Updates during the period', 'Discord support'] },
-    { id: 'vit', label: 'Lifetime', price: 120,  oldPrice: 139.99, per: 'one-time payment',  desc: 'Unlimited access, as long as the product exists.', perks: ['All features', 'All updates', 'Discord support'] },
+    { id: '7',   label: '7 days',    price: 13,   oldPrice: null,   per: 'for 7 days',       desc: 'Try every feature for a full week.', perks: ['All features', 'Updates during the period', 'Discord support'], checkoutUrl: 'https://buy.stripe.com/7sY7sE1vU4IyaLo6cUfQI01' },
+    { id: '30',  label: '30 days',   price: 27.90, oldPrice: null,  per: 'for 30 days',      desc: 'A full month of access with every feature unlocked.', perks: ['All features', 'Updates during the period', 'Discord support'], checkoutUrl: 'https://buy.stripe.com/4gM28k2zY1wm2eSatafQI02' },
+    { id: 'vit', label: 'Lifetime', price: 120,  oldPrice: 139.99, per: 'one-time payment',  desc: 'Unlimited access, as long as the product exists.', perks: ['All features', 'All updates', 'Discord support'], checkoutUrl: 'https://buy.stripe.com/fZueV6deCa2S3iWeJqfQI03' },
   ];
   const fmt = v => v == null ? 'US$ —' : 'US$ ' + v.toLocaleString('en-US', { minimumFractionDigits: 0 });
   const fmtDec = v => 'US$ ' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const seg = document.getElementById('seg');
+  const buyBtn = document.getElementById('buy-btn');
   const choose = id => {
     const p = PLANS.find(x => x.id === id);
     seg.querySelectorAll('button').forEach(b => { const on = b.dataset.id === id; b.setAttribute('aria-checked', on); b.tabIndex = on ? 0 : -1; });
@@ -436,6 +437,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     document.getElementById('per').textContent = p.per;
     document.getElementById('desc').textContent = p.desc;
     document.getElementById('perks').innerHTML = p.perks.map(t => `<li>${t}</li>`).join('');
+    if (buyBtn) {
+      buyBtn.href = p.checkoutUrl || '#';
+    }
   };
   PLANS.forEach(p => {
     const b = document.createElement('button');
