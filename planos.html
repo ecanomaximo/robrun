@@ -134,12 +134,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 .video{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
   background:radial-gradient(500px 300px at 30% 30%,rgba(30,158,87,.25),transparent 70%),linear-gradient(160deg,#0D2619,#06120D)}
 .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover;background:#000}
-.video-badge{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(4,20,12,.82);border:1px solid rgba(46,204,113,.4);color:var(--paper);font-size:.82rem;font-weight:600;backdrop-filter:blur(6px);pointer-events:none}
-.video-badge i{width:8px;height:8px;border-radius:50%;background:var(--hot);box-shadow:0 0 8px var(--hot)}
-.playlist-nav{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.clip-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font:600 .86rem var(--body);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s ease}
-.clip-btn:hover{color:var(--paper);border-color:var(--hot)}
-.clip-btn[aria-pressed="true"],.clip-btn.active{background:rgba(30,158,87,.22);border-color:var(--hot);color:var(--hot-hi)}
 .video-ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;color:var(--muted);padding:20px}
 .video-ph .play{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(30,158,87,.18);border:1.5px solid var(--hot);color:var(--hot-hi)}
 .video-ph strong{color:var(--paper);font:700 1.15rem var(--display)}
@@ -228,13 +222,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
       <div>
         <div class="video" id="video">
           <video id="demo-player" src="clips/clip1.mp4" controls autoplay muted playsinline preload="auto"></video>
-          <div class="video-badge" id="video-badge"><i></i>Demonstração • Clip 1 / 4</div>
-        </div>
-        <div class="playlist-nav" id="playlist-nav" aria-label="Vídeos de demonstração">
-          <button type="button" class="clip-btn active" data-index="0" aria-pressed="true">Clip 1</button>
-          <button type="button" class="clip-btn" data-index="1" aria-pressed="false">Clip 2</button>
-          <button type="button" class="clip-btn" data-index="2" aria-pressed="false">Clip 3</button>
-          <button type="button" class="clip-btn" data-index="3" aria-pressed="false">Clip 4</button>
         </div>
         <div class="chips">
           <span class="chip"><i></i>Windows 10 & 11</span>
@@ -479,45 +466,20 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 
   // Playlist sequencial contínua com loop
   const clips = [
-    { src: 'clips/clip1.mp4', title: 'Clip 1 / 4' },
-    { src: 'clips/clip2.mp4', title: 'Clip 2 / 4' },
-    { src: 'clips/clip3.mp4', title: 'Clip 3 / 4' },
-    { src: 'clips/clip4.mp4', title: 'Clip 4 / 4' }
+    'clips/clip1.mp4',
+    'clips/clip2.mp4',
+    'clips/clip3.mp4',
+    'clips/clip4.mp4'
   ];
   let currentClip = 0;
   const player = document.getElementById('demo-player');
-  const badge = document.getElementById('video-badge');
-  const clipBtns = document.querySelectorAll('.clip-btn');
-
-  function setClip(index, autoPlay = true) {
-    currentClip = index;
-    if (player) {
-      player.src = clips[currentClip].src;
-      if (autoPlay) {
-        player.play().catch(() => {});
-      }
-    }
-    if (badge) {
-      badge.innerHTML = `<i></i>Demonstração • ${clips[currentClip].title}`;
-    }
-    clipBtns.forEach((btn, idx) => {
-      const active = idx === currentClip;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
-  }
-
   if (player) {
     player.addEventListener('ended', () => {
-      // Quando um acabar, o outro inicia. No último, volta ao primeiro (loop)
-      const nextIndex = (currentClip + 1) % clips.length;
-      setClip(nextIndex, true);
+      currentClip = (currentClip + 1) % clips.length;
+      player.src = clips[currentClip];
+      player.play().catch(() => {});
     });
   }
-
-  clipBtns.forEach((btn, idx) => {
-    btn.addEventListener('click', () => setClip(idx, true));
-  });
 })();
 </script>
 </body>
