@@ -141,6 +141,23 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--ink-2);font-size:.88rem;color:var(--muted)}
 .chip i{width:7px;height:7px;border-radius:50%;background:var(--hot)}
 
+.menu-showcase{margin-top:28px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--ink-2);padding:22px;overflow:hidden}
+.menu-showcase-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.menu-showcase-head h3{color:var(--hot-hi);font:700 1.12rem var(--cond);text-transform:uppercase;letter-spacing:.04em}
+.menu-showcase-head span{color:var(--muted);font-size:.84rem}
+.menu-tab-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.menu-tab-nav::-webkit-scrollbar{display:none}
+.menu-tab{flex:none;background:rgba(6,18,13,.75);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font:600 .82rem var(--body);color:var(--muted);cursor:pointer;transition:all .15s}
+.menu-tab:hover{color:var(--paper);border-color:var(--hot)}
+.menu-tab.active{background:rgba(30,158,87,.22);border-color:var(--hot);color:var(--hot-hi)}
+.menu-screen-box{position:relative;margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:975/638}
+.menu-screen-box img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .15s ease}
+.menu-thumbs{display:flex;gap:8px;margin-top:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.menu-thumb{flex:none;width:76px;aspect-ratio:975/638;border-radius:6px;overflow:hidden;border:1px solid var(--line);cursor:pointer;opacity:.55;transition:all .15s;background:#000;padding:0}
+.menu-thumb:hover{opacity:.9;border-color:var(--hot)}
+.menu-thumb.active{opacity:1;border-color:var(--hot-hi);box-shadow:0 0 8px rgba(94,227,154,.35)}
+.menu-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
 .buy{position:sticky;top:118px;background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px}
 .buy h1{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:800;color:var(--hot-hi)}
 .buy .sub{margin-top:8px;font:800 1.15rem/1.1 var(--cond);text-transform:uppercase;letter-spacing:.01em}
@@ -229,6 +246,40 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
           <span class="chip"><i></i>Aimbot</span>
           <span class="chip"><i></i>Radar</span>
           <span class="chip"><i></i>Saved configs</span>
+        </div>
+
+        <div class="menu-showcase" id="menu-showcase">
+          <div class="menu-showcase-head">
+            <h3>Visual do Menu</h3>
+            <span id="menu-active-title">Aba 1 de 10: PLAYERS</span>
+          </div>
+          <div class="menu-tab-nav" role="tablist" aria-label="Abas do menu">
+            <button type="button" class="menu-tab active" data-idx="0">Players</button>
+            <button type="button" class="menu-tab" data-idx="1">Police</button>
+            <button type="button" class="menu-tab" data-idx="2">Aim</button>
+            <button type="button" class="menu-tab" data-idx="3">Camera</button>
+            <button type="button" class="menu-tab" data-idx="4">Loot</button>
+            <button type="button" class="menu-tab" data-idx="5">Cargo</button>
+            <button type="button" class="menu-tab" data-idx="6">Bases</button>
+            <button type="button" class="menu-tab" data-idx="7">Radar / HUD</button>
+            <button type="button" class="menu-tab" data-idx="8">Body</button>
+            <button type="button" class="menu-tab" data-idx="9">Colors</button>
+          </div>
+          <div class="menu-screen-box">
+            <img id="menu-main-img" src="img/menu/01_players.png" alt="Visual do menu - Players" loading="lazy">
+          </div>
+          <div class="menu-thumbs" aria-label="Miniaturas do menu">
+            <button type="button" class="menu-thumb active" data-idx="0" title="Players"><img src="img/menu/01_players.png" alt="Players"></button>
+            <button type="button" class="menu-thumb" data-idx="1" title="Police"><img src="img/menu/02_police.png" alt="Police"></button>
+            <button type="button" class="menu-thumb" data-idx="2" title="Aim"><img src="img/menu/03_aim.png" alt="Aim"></button>
+            <button type="button" class="menu-thumb" data-idx="3" title="Camera"><img src="img/menu/04_camera.png" alt="Camera"></button>
+            <button type="button" class="menu-thumb" data-idx="4" title="Loot"><img src="img/menu/05_loot.png" alt="Loot"></button>
+            <button type="button" class="menu-thumb" data-idx="5" title="Cargo"><img src="img/menu/06_cargo.png" alt="Cargo"></button>
+            <button type="button" class="menu-thumb" data-idx="6" title="Bases"><img src="img/menu/07_bases.png" alt="Bases"></button>
+            <button type="button" class="menu-thumb" data-idx="7" title="Radar / HUD"><img src="img/menu/08_radar.png" alt="Radar / HUD"></button>
+            <button type="button" class="menu-thumb" data-idx="8" title="Body"><img src="img/menu/09_body.png" alt="Body"></button>
+            <button type="button" class="menu-thumb" data-idx="9" title="Colors"><img src="img/menu/10_colors.png" alt="Colors"></button>
+          </div>
         </div>
       </div>
 
@@ -480,6 +531,39 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
       player.play().catch(() => {});
     });
   }
+
+  // Galeria visual do menu
+  const menuScreens = [
+    { title: 'Aba 1 de 10: PLAYERS', src: 'img/menu/01_players.png' },
+    { title: 'Aba 2 de 10: POLICE', src: 'img/menu/02_police.png' },
+    { title: 'Aba 3 de 10: AIM', src: 'img/menu/03_aim.png' },
+    { title: 'Aba 4 de 10: CAMERA', src: 'img/menu/04_camera.png' },
+    { title: 'Aba 5 de 10: LOOT', src: 'img/menu/05_loot.png' },
+    { title: 'Aba 6 de 10: CARGO', src: 'img/menu/06_cargo.png' },
+    { title: 'Aba 7 de 10: BASES', src: 'img/menu/07_bases.png' },
+    { title: 'Aba 8 de 10: RADAR / HUD', src: 'img/menu/08_radar.png' },
+    { title: 'Aba 9 de 10: BODY', src: 'img/menu/09_body.png' },
+    { title: 'Aba 10 de 10: COLORS', src: 'img/menu/10_colors.png' }
+  ];
+  const menuImg = document.getElementById('menu-main-img');
+  const menuTitle = document.getElementById('menu-active-title');
+  const menuTabs = document.querySelectorAll('.menu-tab');
+  const menuThumbs = document.querySelectorAll('.menu-thumb');
+
+  function setMenuScreen(idx) {
+    if (!menuScreens[idx]) return;
+    if (menuImg) menuImg.src = menuScreens[idx].src;
+    if (menuTitle) menuTitle.textContent = menuScreens[idx].title;
+    menuTabs.forEach((tab, i) => tab.classList.toggle('active', i === idx));
+    menuThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === idx));
+  }
+
+  menuTabs.forEach(tab => {
+    tab.addEventListener('click', () => setMenuScreen(Number(tab.dataset.idx)));
+  });
+  menuThumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => setMenuScreen(Number(thumb.dataset.idx)));
+  });
 })();
 </script>
 </body>
