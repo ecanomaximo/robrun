@@ -176,7 +176,45 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 .buy .btn{width:100%;margin-top:24px}
 .buy .fine{margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center}
 .buy .note{margin-top:20px}
-@media(max-width:940px){.product{grid-template-columns:1fr}.buy{position:static}}
+@media(max-width:940px){
+  .product{grid-template-columns:1fr;gap:32px;padding:20px 0 60px}
+  .buy{position:static}
+}
+
+@media(max-width:768px){
+  .product{gap:24px;padding:16px 0 50px}
+  .menu-showcase{margin-top:18px;padding:14px;border-radius:14px}
+  .menu-showcase-head{margin-bottom:10px}
+  .menu-showcase-head h3{font-size:.98rem}
+  .menu-showcase-head span{font-size:.76rem}
+  .menu-tab-nav{gap:5px;padding-bottom:5px}
+  .menu-tab{padding:5px 9px;font-size:.74rem;border-radius:6px}
+  .menu-screen-box{margin-top:10px;border-radius:8px}
+  .menu-thumbs{gap:6px;margin-top:8px}
+  .menu-thumb{width:54px;border-radius:4px}
+  .chips{gap:6px;margin-top:14px}
+  .chip{padding:6px 10px;font-size:.8rem}
+  .buy{padding:24px 20px;border-radius:16px}
+}
+
+@media(max-width:480px){
+  .wrap{width:min(1180px,100% - 24px)}
+  .product{gap:20px;padding:12px 0 40px}
+  .menu-showcase{margin-top:14px;padding:12px 10px;border-radius:12px}
+  .menu-showcase-head h3{font-size:.9rem}
+  .menu-showcase-head span{font-size:.72rem}
+  .menu-tab-nav{gap:4px;padding-bottom:4px}
+  .menu-tab{padding:4px 8px;font-size:.7rem;border-radius:5px}
+  .menu-screen-box{margin-top:8px;border-radius:6px}
+  .menu-thumbs{gap:4px;margin-top:6px}
+  .menu-thumb{width:44px;border-radius:4px}
+  .chips{gap:5px;margin-top:10px}
+  .chip{padding:4px 8px;font-size:.74rem}
+  .buy{padding:18px 14px;border-radius:12px}
+  .buy h1{font-size:1.85rem}
+  .price strong{font-size:2.2rem}
+  .seg button{padding:10px 4px;font-size:.88rem}
+}
 
 .tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
 .tabs button{font:600 1rem var(--body);color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:14px 18px;margin-bottom:-1px;cursor:pointer}
@@ -550,12 +588,22 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   const menuTabs = document.querySelectorAll('.menu-tab');
   const menuThumbs = document.querySelectorAll('.menu-thumb');
 
+  let activeMenuIdx = 0;
   function setMenuScreen(idx) {
     if (!menuScreens[idx]) return;
+    activeMenuIdx = idx;
     if (menuImg) menuImg.src = menuScreens[idx].src;
     if (menuTitle) menuTitle.textContent = menuScreens[idx].title;
-    menuTabs.forEach((tab, i) => tab.classList.toggle('active', i === idx));
-    menuThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === idx));
+    menuTabs.forEach((tab, i) => {
+      const active = i === idx;
+      tab.classList.toggle('active', active);
+      if (active) tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    menuThumbs.forEach((thumb, i) => {
+      const active = i === idx;
+      thumb.classList.toggle('active', active);
+      if (active) thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
   }
 
   menuTabs.forEach(tab => {
@@ -564,6 +612,25 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   menuThumbs.forEach(thumb => {
     thumb.addEventListener('click', () => setMenuScreen(Number(thumb.dataset.idx)));
   });
+
+  // Navegação por arrasto (swipe) no mobile
+  const screenBox = document.querySelector('.menu-screen-box');
+  if (screenBox) {
+    let touchStartX = 0;
+    screenBox.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    screenBox.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) {
+          setMenuScreen((activeMenuIdx + 1) % menuScreens.length);
+        } else {
+          setMenuScreen((activeMenuIdx - 1 + menuScreens.length) % menuScreens.length);
+        }
+      }
+    }, { passive: true });
+  }
 })();
 </script>
 </body>
