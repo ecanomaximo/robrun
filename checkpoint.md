@@ -1,23 +1,24 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Links de pagamento individuais do Stripe configurados com sucesso em `planos.html`).
+- **Status:** Concluído (Links de redirecionamento para o Discord oficial configurados em todo o site e enviados para o GitHub Pages).
 
 ## O que foi feito
-1. **Configuração dos 3 Links de Pagamento do Stripe em `planos.html`:**
-   - **7 dias:** `https://buy.stripe.com/7sY7sE1vU4IyaLo6cUfQI01` (US$ 13,00)
-   - **30 dias:** `https://buy.stripe.com/4gM28k2zY1wm2eSatafQI02` (US$ 27,90)
-   - **Vitalício (Lifetime):** `https://buy.stripe.com/fZueV6deCa2S3iWeJqfQI03` (US$ 120,00)
-2. **Integração Dinâmica com o Seletor de Planos:**
-   - O botão `Buy now` (`#buy-btn`) atualiza em tempo real a URL de checkout de acordo com o plano selecionado pelo usuário.
-   - O link abre em nova aba (`target="_blank" rel="noopener"`) para manter o usuário no site.
+1. **Configuração dos Links do Discord:**
+   - Inserido o convite oficial `https://discord.gg/b4pM2y633s` em todos os pontos de contato:
+     - **Header / Barra de navegação:** Ícone do Discord no topo de [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html) e [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
+     - **Card de suporte:** Botão "Join Discord" nas seções de atendimento.
+     - **Rodapé:** Link "Discord" nas listas de navegação inferiores.
+   - Configurado `target="_blank" rel="noopener"` para abrir em nova aba sem tirar o cliente da página.
+2. **Deploy no GitHub Pages:**
+   - Commit e push realizados no repositório remoto (`origin/main`).
 
 ## Onde parou
-- Configuração finalizada e pronta para receber pagamentos em produção.
+- Atualização em produção no GitHub Pages.
 
 ## Contexto Atual
-- Arquivo modificado: [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
-- Todos os planos mapeados com seus respectivos links Stripe.
+- Arquivos web atualizados: `index.html` e `planos.html`.
+- Link do Discord: `https://discord.gg/b4pM2y633s`.
 
 ## Próximos Passos
-- Nenhuma pendência técnica identificada. O fluxo de compra está totalmente operacional.
+- Nenhuma pendência.
