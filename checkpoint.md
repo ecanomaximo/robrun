@@ -1,24 +1,29 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Links de redirecionamento para o Discord oficial configurados em todo o site e enviados para o GitHub Pages).
+- **Status:** Concluído (Integração dos 4 vídeos de demonstração em playlist contínua com loop infinito em planos.html).
 
 ## O que foi feito
-1. **Configuração dos Links do Discord:**
-   - Inserido o convite oficial `https://discord.gg/b4pM2y633s` em todos os pontos de contato:
-     - **Header / Barra de navegação:** Ícone do Discord no topo de [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html) e [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
-     - **Card de suporte:** Botão "Join Discord" nas seções de atendimento.
-     - **Rodapé:** Link "Discord" nas listas de navegação inferiores.
-   - Configurado `target="_blank" rel="noopener"` para abrir em nova aba sem tirar o cliente da página.
-2. **Deploy no GitHub Pages:**
-   - Commit e push realizados no repositório remoto (`origin/main`).
+1. **Otimização e Compressão com FFmpeg:**
+   - Convertidos todos os 4 vídeos da pasta `clips mrcheats` para formato web compatível (H.264, 720p 30fps, áudio AAC, `-movflags +faststart`), reduzindo de mais de 700 MB para ~103 MB no total (< 37 MB cada, dentro do limite do GitHub e com streaming progressivo imediato):
+     - `clips/clip1.mp4` (~30.0 MB)
+     - `clips/clip2.mp4` (~20.5 MB)
+     - `clips/clip3.mp4` (~36.9 MB)
+     - `clips/clip4.mp4` (~15.7 MB)
+2. **Integração na Box de Vídeo em `planos.html`:**
+   - Substituído o placeholder "Em breve" por player `<video>` com controles, reprodução automática silenciada (`autoplay muted playsinline`) e pré-carregamento.
+   - Badge indicador de progresso no canto superior esquerdo (`Demonstração • Clip X / 4`).
+   - Botões de seleção rápida para permitir alternar manualmente entre os clipes 1, 2, 3 e 4.
+   - Script de playlist contínua: quando um clipe termina, o próximo inicia automaticamente; ao finalizar o 4º clipe, o loop reinicia no 1º clipe.
+3. **Controle de Versão (.gitignore):**
+   - Criado `.gitignore` para ignorar a pasta com gravações brutas (`clips mrcheats/`) e logs locais, mantendo o repositório leve e ágil.
 
 ## Onde parou
-- Atualização em produção no GitHub Pages.
+- Vídeos codificados e playlist funcionando perfeitamente em [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html).
 
 ## Contexto Atual
-- Arquivos web atualizados: `index.html` e `planos.html`.
-- Link do Discord: `https://discord.gg/b4pM2y633s`.
+- Clips web disponíveis em `clips/`.
+- Repositório pronto para sincronização com o GitHub Pages.
 
 ## Próximos Passos
-- Nenhuma pendência.
+- Sincronizar via `git push origin main` quando desejado.
