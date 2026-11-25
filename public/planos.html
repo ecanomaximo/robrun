@@ -143,6 +143,12 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 .video{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
   background:radial-gradient(500px 300px at 30% 30%,rgba(30,158,87,.25),transparent 70%),linear-gradient(160deg,#0D2619,#06120D)}
 .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover;background:#000}
+.video-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(6,18,13,0.78);backdrop-filter:blur(4px);border:1.5px solid var(--line);color:var(--paper);font-size:1.8rem;line-height:1;display:grid;place-items:center;cursor:pointer;z-index:10;transition:all .15s ease;user-select:none}
+.video-nav:hover{border-color:var(--hot);color:var(--hot-hi);background:rgba(6,18,13,0.95);transform:translateY(-50%) scale(1.08)}
+.video-nav:active{transform:translateY(-50%) scale(0.95)}
+.video-nav.prev{left:12px}
+.video-nav.next{right:12px}
+.video-badge{position:absolute;top:12px;right:12px;z-index:10;background:rgba(6,18,13,0.85);backdrop-filter:blur(4px);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.76rem;font-weight:600;color:var(--hot-hi);pointer-events:none;user-select:none}
 .video-ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;color:var(--muted);padding:20px}
 .video-ph .play{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(30,158,87,.18);border:1.5px solid var(--hot);color:var(--hot-hi)}
 .video-ph strong{color:var(--paper);font:700 1.15rem var(--display)}
@@ -240,6 +246,10 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     object-fit:contain;
     background:#000;
   }
+  .video-nav{width:36px;height:36px;font-size:1.4rem}
+  .video-nav.prev{left:8px}
+  .video-nav.next{right:8px}
+  .video-badge{top:8px;right:8px;font-size:.7rem;padding:3px 8px}
   .chips{
     justify-content:center;
     gap:5px;
@@ -300,6 +310,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     height:165px;
     border-radius:10px;
   }
+  .video-nav{width:32px;height:32px;font-size:1.25rem}
+  .video-nav.prev{left:6px}
+  .video-nav.next{right:6px}
   .chips{gap:4px;margin-top:8px}
   .chip{padding:4px 8px;font-size:.72rem}
   .buy{padding:16px 12px;border-radius:12px}
@@ -371,6 +384,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
       <div class="product-visuals">
         <div class="video" id="video">
           <video id="demo-player" src="clips/clip1.mp4" controls autoplay muted playsinline preload="auto"></video>
+          <button type="button" class="video-nav prev" id="video-prev" aria-label="Vídeo anterior" title="Vídeo anterior">‹</button>
+          <button type="button" class="video-nav next" id="video-next" aria-label="Próximo vídeo" title="Próximo vídeo">›</button>
+          <div class="video-badge" id="video-badge">Vídeo 1 de 4</div>
         </div>
         <div class="chips">
           <span class="chip"><i></i>Windows 10 & 11</span>
@@ -664,7 +680,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
     });
   });
 
-  // Playlist sequencial contínua com loop
+  // Playlist sequencial contínua com navegação por setas
   const clips = [
     'clips/clip1.mp4',
     'clips/clip2.mp4',
@@ -673,11 +689,42 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   ];
   let currentClip = 0;
   const player = document.getElementById('demo-player');
-  if (player) {
-    player.addEventListener('ended', () => {
-      currentClip = (currentClip + 1) % clips.length;
+  const videoPrev = document.getElementById('video-prev');
+  const videoNext = document.getElementById('video-next');
+  const videoBadge = document.getElementById('video-badge');
+
+  function updateVideoBadge() {
+    if (videoBadge) {
+      videoBadge.textContent = `Vídeo ${currentClip + 1} de ${clips.length}`;
+    }
+  }
+
+  function setClip(idx) {
+    currentClip = (idx + clips.length) % clips.length;
+    if (player) {
       player.src = clips[currentClip];
       player.play().catch(() => {});
+    }
+    updateVideoBadge();
+  }
+
+  if (player) {
+    player.addEventListener('ended', () => {
+      setClip(currentClip + 1);
+    });
+  }
+
+  if (videoPrev) {
+    videoPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      setClip(currentClip - 1);
+    });
+  }
+
+  if (videoNext) {
+    videoNext.addEventListener('click', e => {
+      e.stopPropagation();
+      setClip(currentClip + 1);
     });
   }
 
