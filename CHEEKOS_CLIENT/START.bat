@@ -1,12 +1,30 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title CHEEKOS
+title MR - Rob Run
 
 if not exist "RRX.exe" (
     echo [ERROR] RRX.exe is missing from this folder.
     pause
     exit /b 1
+)
+
+rem Rotacao automatica de logs se passarem de 5MB
+for %%F in (*.log) do (
+    if %%~zF gtr 5242880 (
+        echo [INFO] Limpando log volumoso: %%F
+        type nul > "%%F"
+    )
+)
+
+rem Verificacao e Ativacao da Licenca (Key)
+if exist "activate.ps1" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0activate.ps1"
+    if errorlevel 1 (
+        echo [STOP] Acesso negado. Ativacao necessaria para continuar.
+        pause
+        exit /b 1
+    )
 )
 
 rem The driver publishes HKLM\SYSTEM\SmxRing when it is mapped; the overlay
@@ -24,8 +42,8 @@ if errorlevel 1 (
     echo.
 )
 
-echo Starting CHEEKOS (administrator prompt follows)...
-start "CHEEKOS" "%~dp0RRX.exe"
+echo Starting MR (administrator prompt follows)...
+start "MR" "%~dp0RRX.exe"
 ping -n 3 127.0.0.1 >nul
 echo.
 echo Ctrl+F1 = menu    Ctrl+Insert = overlay on/off    Ctrl+End = quit

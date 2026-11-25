@@ -1,33 +1,34 @@
 # Checkpoint do Projeto
 
 ## Status Atual
-- **Status:** Concluído (Substituição e atualização de todos os logotipos oficiais e favicons pela nova identidade visual com mira verde MR CHEATS).
+- **Status:** Concluído com sucesso (Arquitetura reorganizada em pastas modulares, segregação DEV/VENDA implementada e deploy validado).
 
 ## O que foi feito
-1. **Processamento da Nova Imagem Oficial:**
-   - A imagem enviada (retículo/mira circular com texto centralizado `MR CHEATS`) foi convertida e otimizada em múltiplas resoluções:
-     - `logo_mr.png` (1024x1024 em alta resolução).
-     - `logo_mr_512.png` (512x512).
-     - `logo_mr_256.png` (256x256).
-     - `logo_mr_128.png` (128x128).
-     - `favicon.ico` (multi-tamanhos: 16x16, 32x32, 48x48, 64x64).
-     - `favicon.png` (64x64).
-     - `logo_mr.svg` (com encapsulamento vetorial).
-2. **Atualização nas Páginas:**
-   - [index.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/index.html): ícone da barra de navegação e favicon atualizados.
-   - [planos.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/planos.html): ícone da barra de navegação e favicon atualizados.
-   - [chat.html](file:///c:/Users/emaxi/OneDrive/Área%20de%20Trabalho/claude/robrun/chat.html): avatar do robô de entrega no cabeçalho e em cada bolha de mensagem atualizado com a nova logo.
-3. **Deploy de Produção:**
-   - Publicado com sucesso no Firebase Hosting (`mrcheats.web.app`).
+1. **Reorganização Completa da Arquitetura de Arquivos:**
+   - Pasta `public/`: Centraliza 100% dos ativos do site web (`index.html`, `planos.html`, `chat.html`, `clips/`, `img/`, favicons, logos, backgrounds e o pacote `MR_RobRun_Client.zip`).
+   - Configuração do Firebase: `firebase.json` atualizado para `"public": "public"`.
+   - Pasta `CHEEKOS_DEV/`: Versão para desenvolvedor, executa `RRX.exe` direto sem verificação de licença, sem pedir chave e sem amarrar HWID.
+   - Pasta `CHEEKOS_CLIENT/`: Versão comercial limpa e enxuta, sem logs pesados residuais, contendo `START.bat` protegido com `activate.ps1` (HMAC SHA-256 + HWID).
+   - Pasta `tools/`: Armazena gerador de chaves criptográficas (`gerar_chaves.py`) e arquivos de lotes de keys (`chaves_venda.txt`).
+   - Pasta `raw_assets/`: Armazena gravações brutas (`clips_mrcheats_raw`), backups antigos (`CHEEKOS_LEGACY_DIR`) e `.zip` legado.
+   - Script `empacotar.bat` na raiz: Atualizado para gerar de forma nativa e automática o pacote limpo `public/MR_RobRun_Client.zip` a partir de `CHEEKOS_CLIENT/`.
+2. **Deploy e Validação:**
+   - Realizado deploy no Firebase Hosting do site `mrcheats`.
+   - Todas as rotas e ativos testados e respondendo 200 OK:
+     - `https://mrcheats.web.app`
+     - `https://mrcheats.web.app/planos`
+     - `https://mrcheats.web.app/chat`
+     - `https://mrcheats.web.app/MR_RobRun_Client.zip`
+     - `https://mrcheats.web.app/clips/clip1.mp4`
+     - `https://mrcheats.web.app/favicon.ico`
+     - `https://mrcheats.web.app/logo_mr.png`
 
 ## Onde parou
-- Nova logo oficial aplicada em todas as páginas, favicons e avatar do bot de entrega.
+- Estrutura de pastas 100% limpa, separada e em produção.
 
 ## Contexto Atual
-- URL com a nova identidade visual:
-  - https://mrcheats.web.app
-  - https://mrcheats.web.app/planos
-  - https://mrcheats.web.app/chat
+- Raiz do projeto: Apenas 5 pastas (`public`, `CHEEKOS_DEV`, `CHEEKOS_CLIENT`, `tools`, `raw_assets`) e 5 arquivos de controle (`.firebaserc`, `.gitignore`, `firebase.json`, `empacotar.bat`, `checkpoint.md`).
+- Cliente ZIP: Atualizado e disponível diretamente na URL `/MR_RobRun_Client.zip` para os clientes do bot.
 
 ## Próximos Passos
-- Nenhuma pendência imediata.
+- Conectar a função `gerar_key_mr` ao bot do Discord/Stripe para entrega automatizada de keys de 7D, 30D ou Vitalício.

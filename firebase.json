@@ -1,18 +1,11 @@
 {
   "hosting": {
     "site": "mrcheats",
-    "public": ".",
+    "public": "public",
     "cleanUrls": true,
     "ignore": [
       "firebase.json",
-      "**/.*",
-      "**/node_modules/**",
-      "CHEEKOS/**",
-      "clips mrcheats/**",
-      "*.bat",
-      "*.txt",
-      "*.py",
-      "checkpoint.md"
+      "**/.*"
     ]
   }
 }

@@ -1,5 +1,5 @@
-CHEEKOS - how to run
-====================
+MR - how to run
+================
 
 WHAT YOU NEED
   Windows 10 or 11, 64-bit, with administrator rights.

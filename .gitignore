@@ -1,6 +1,12 @@
-clips mrcheats/
-chaves_venda.txt
+# Raw assets and legacy backups
+raw_assets/
+tools/chaves_venda.txt
+
+# Binary backups and logs
 *.bak
 *.log
-CHEEKOS/*.log
-CHEEKOS/robrun_runtime.txt
+*.tmp
+**/*.log
+
+# Runtime
+**/robrun_runtime.txt

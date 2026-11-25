@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>MR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,sans-serif}
+html,body{height:100%;background:#06120D;color:#E8F1EC;overflow:hidden;font-size:13px}
+#win{position:fixed;inset:0;display:flex;flex-direction:column;background:#06120D;
+     border:1px solid #1C3829}
+#bar{height:42px;flex:none;display:flex;align-items:center;gap:12px;padding:0 8px 0 14px;
+     background:linear-gradient(90deg,#0D1F17,#06120D);border-bottom:1px solid #1C3829;cursor:move}
+#logo{display:inline-flex;align-items:center;justify-content:center;padding:2px 10px;height:24px;
+      border-radius:7px;font-weight:800;font-size:12px;letter-spacing:1px;
+      color:#5EE39A;background:linear-gradient(160deg,#0F3A24,#06170E);border:1.5px solid #1E9E57}
+#sub{color:#8FA89A;font-size:11px;letter-spacing:1px}
+#x{margin-left:auto;width:28px;height:28px;background:transparent;border:1px solid #1C3829;
+   color:#8FA89A;font-size:16px;line-height:1;cursor:pointer;border-radius:6px}
+#x:hover{border-color:#5EE39A;color:#5EE39A;background:#0D1F17}
+#main{flex:1;display:flex;min-height:0}
+#tabs{width:150px;flex:none;background:#06120D;border-right:1px solid #1C3829;
+      padding:10px 0;overflow:auto}
+.tab{display:block;width:100%;text-align:left;padding:10px 16px;background:transparent;
+     border:0;border-left:2px solid transparent;color:#8FA89A;font-size:12px;
+     letter-spacing:.6px;cursor:pointer}
+.tab:hover{color:#E8F1EC;background:#0D1F17}
+.tab.on{color:#5EE39A;border-left-color:#1E9E57;background:linear-gradient(90deg,#0F3A24,#06120D)}
+#pages{flex:1;overflow:auto;padding:14px 18px 18px;background:#06120D}
+.page{display:none}
+.page.on{display:block}
+h2{font-size:12px;letter-spacing:2px;color:#5EE39A;font-weight:600;margin:14px 0 8px}
+h2:first-child{margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.row{display:flex;align-items:center;gap:10px;min-height:26px;padding:2px 0;
+     border-bottom:1px solid #142E20}
+.lbl{flex:1;color:#cbe0d4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.note{display:block;grid-column:1/-1;border-bottom:0;padding:8px 0 2px}
+.row.note .lbl{display:block;white-space:normal;color:#8FA89A;font-size:11px;line-height:1.6}
+.sw{width:40px;height:20px;flex:none;background:#0D1F17;border:1px solid #1C3829;border-radius:10px;
+    position:relative;cursor:pointer;transition:background .12s,border-color .12s}
+.sw:after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+          background:#4a6355;transition:left .12s,background .12s}
+.sw.on{background:#0F3A24;border-color:#1E9E57}
+.sw.on:after{left:22px;background:#5EE39A}
+input[type=range]{flex:none;width:150px;accent-color:#1E9E57;background:transparent}
+output{flex:none;width:52px;text-align:right;color:#8FA89A;font-variant-numeric:tabular-nums}
+select,input[type=number]{flex:none;width:100px;background:#0D1F17;color:#E8F1EC;
+  border:1px solid #1C3829;border-radius:6px;padding:3px 4px;font-size:12px}
+input[type=number]{width:70px}
+.col{display:flex;align-items:center;gap:10px;padding:4px 0;border-bottom:1px solid #142E20}
+.col input[type=color]{width:34px;height:20px;border:1px solid #1C3829;border-radius:4px;background:#06120D;padding:0}
+.col code{color:#8FA89A;font-size:11px;width:76px;text-align:right;margin-left:auto}
+.btn{background:linear-gradient(160deg,#0F3A24,#06170E);border:1.5px solid #1E9E57;color:#5EE39A;padding:7px 16px;
+     border-radius:8px;cursor:pointer;letter-spacing:1px;font-size:12px;font-weight:600}
+.btn:hover{background:#1E9E57;color:#06120D}
+#foot{height:28px;flex:none;display:flex;align-items:center;gap:16px;padding:0 12px;
+      background:#06120D;border-top:1px solid #1C3829;font-size:11px;color:#8FA89A}
+#toast{color:#5EE39A;margin-left:auto}
+</style></head>
+<body>
+<div id="win">
+  <div id="bar"><span id="logo">MR</span><span id="sub">private build</span>
+    <button id="x">&#215;</button></div>
+  <div id="main"><nav id="tabs"></nav><section id="pages"></section></div>
+  <div id="foot"><span id="telem">waiting for game</span><span id="toast"></span></div>
+</div>
+<script>
+"use strict";
+var host = (window.chrome && window.chrome.webview) ? window.chrome.webview : null;
+function send(m){ if (host) host.postMessage(m); }
+
+var TABS = [["players","PLAYERS"],["police","POLICE"],["aim","AIM"],["camera","CAMERA"],
+            ["loot","LOOT"],
+            ["cargo","CARGO"],["bases","BASES"],["radar","RADAR / HUD"],["body","BODY"],
+            ["colors","COLORS"],["settings","SETTINGS"]];
+
+var ROWS = {
+players: [
+  ["show_box","Bounding box","sw"],
+  ["show_head","Head dot","sw"],
+  ["show_skeleton","Skeleton","sw"],
+  ["skel_glow","Skeleton glow","sw"],
+  ["show_name","Name","sw"],
+  ["show_distance","Distance","sw"],
+  ["show_weapon","Weapon","sw"],
+  ["show_armor","Armor tag","sw"],
+  ["show_health","Health","sw"],
+  ["show_cash","Cash under names","sw"],
+  ["show_crouch","Crouching tag","sw"],
+  ["show_clan","Clan members","sw"],
+  ["show_self","Self markers","sw"],
+  ["cham_on","Character chams","sw"],
+  ["show_vehicle_markers","Vehicle markers","sw"],
+  ["show_vehicle_occupants","Vehicle occupants","sw"],
+  ["vehicle_chams","Vehicle chams","sw"],
+  ["max_distance","Range limit (cm)","range",0,200000,500],
+  ["skel_distance","Skeleton range (cm)","range",0,200000,500],
+  ["line_w","Line width","range",1,4,1],
+  ["esp_backdrop","Text backdrop","sw"]
+],
+police: [
+  ["show_police","Draw police","sw"],
+  ["police_vehicles","Police vehicles","sw"],
+  ["police_alarm","Nearest cop distance","sw"],
+  ["police_alarm_range","Warning range (m)","range",10,500,5],
+  ["cop_notify","Cop slot alert","sw"],
+  ["cop_notify_beep","Alert beep","sw"],
+  ["show_cops","HUD: cops n/max","sw"],
+  ["aa_target_police","Aim assist targets police","sw"]
+],
+aim: [
+  ["aa_on","Aim assist","sw"],
+  ["aa_show_fov","Draw FOV ring","sw"],
+  ["aa_fov_px","FOV radius (px)","range",30,600,10],
+  ["aa_smooth","Smoothing","range",1,10,1],
+  ["aa_aim_cal","Sensitivity cal","range",10,2000,10],
+  ["aa_dist","Max target range (m, 0 = off)","range",0,1000,10],
+  ["aa_closest_first","Closest joint first","sw"],
+  ["aa_los_on","Require clear line","sw"],
+  ["aa_target_clan","Target clan members","sw"],
+  ["aa_target_police","Target police","sw"],
+  ["aa_skip_knocked","Skip knocked / downed","sw"],
+  ["aa_skip_citizen","Skip civilians","sw"],
+  ["aa_key","Activation key","sel",[[2,"Mouse right"],[4,"Mouse middle"],[5,"Mouse 4"],
+    [6,"Mouse 5"],[9,"Tab"],[16,"Shift"],[17,"Ctrl"],[18,"Alt"],[20,"Caps Lock"],
+    [67,"C"],[70,"F"],[81,"Q"],[86,"V"],[88,"X"],[90,"Z"]]],
+  ["aa_bone","Target joint","sel",[[0,"Head"],[1,"Neck"],[2,"Chest"],[3,"Pelvis"],
+    [4,"Closest joint"],[5,"Arms"],[6,"Legs"],[7,"Face"],[8,"Hands"],[9,"Feet"]]]
+],
+camera: [
+  ["fov_on","FOV changer","sw"],
+  ["cam_fov","FOV value (0 = game)","range",0,150,1],
+  ["freecam_on","Freecam","sw"],
+  ["note","FOV changer - switch it on, then set the angle with the slider or with [-] and [=] " +
+   "(5 deg a press, 15 with Shift). [\\] hands the camera back to the game. Every virtual " +
+   "camera the mix is blending is held, so the view stops fighting the game and stops " +
+   "flickering in vehicles, where a new camera joins the blend.","note"],
+  ["note","Freecam - switch it on and the camera detaches at the player's eye. [W][A][S][D] fly " +
+   "forward / back / strafe, [PageUp] and [PageDown] rise and sink, [7] and [9] turn, [8] and " +
+   "[0] tilt, holding [Shift] triples the rate. [[] and []] set the speed (0.5 to 60 m/s, " +
+   "default 4). [F3] does exactly what this switch does. Switching it off snaps back to the player.","note"]
+],
+loot: [
+  ["loot_items_all","All items (master)","sw"],
+  ["loot_item_cash","Cash / money","sw"],
+  ["loot_item_jewelry","Jewelry","sw"],
+  ["loot_item_phones","Phones","sw"],
+  ["loot_item_tablets","Tablets / laptops","sw"],
+  ["loot_item_paintings","Paintings / art","sw"],
+  ["loot_item_watches","Watches","sw"],
+  ["loot_item_gold","Gold bars","sw"],
+  ["loot_item_tools","Tools","sw"],
+  ["loot_item_drugs","Drugs","sw"],
+  ["loot_item_meds","Meds / pills","sw"],
+  ["loot_item_docs","Documents","sw"],
+  ["loot_item_keys","Keys / cards","sw"],
+  ["loot_item_weapons","Weapons","sw"],
+  ["loot_item_ammo","Ammo","sw"],
+  ["loot_item_other","Other items","sw"],
+  ["show_loot_nodes","Loot nodes","sw"],
+  ["show_containers","Containers","sw"],
+  ["show_doors","Doors","sw"],
+  ["door_state","Door state","sel",[[0,"Any state"],[1,"Closed / locked"],[2,"Open"]]],
+  ["loot_tier_none","Tier: unranked","sw"],
+  ["loot_tier_common","Tier: common","sw"],
+  ["loot_tier_uncommon","Tier: uncommon","sw"],
+  ["loot_tier_rare","Tier: rare","sw"],
+  ["loot_tier_epic","Tier: epic","sw"],
+  ["loot_tier_legendary","Tier: legendary","sw"],
+  ["loot_tier_exotic","Tier: exotic","sw"],
+  ["insta_loot","Instant loot","sw"]
+],
+cargo: [
+  ["cargo_all","All cargo (master)","sw"],
+  ["cargo_ammo","Ammo","sw"],
+  ["cargo_carparts","Car parts","sw"],
+  ["cargo_electronics","Electronics","sw"],
+  ["cargo_equipment","Equipment","sw"],
+  ["cargo_jewelry","Jewelry","sw"],
+  ["cargo_medicine","Medicine","sw"],
+  ["cargo_minimarket","Minimarket","sw"],
+  ["cargo_alcohol","Alcohol","sw"],
+  ["cargo_bags","Money bags","sw"],
+  ["cargo_box","Boxes","sw"],
+  ["cargo_bush","Growing","sw"],
+  ["cargo_manifest","Manifests","sw"],
+  ["cargo_delivery","Delivery","sw"],
+  ["cargo_buildings","Buildings","sw"],
+  ["cargo_other","Other cargo","sw"],
+  ["show_workbench","Workbenches","sw"]
+],
+bases: [
+  ["show_storage","Storage boxes / plots","sw"],
+  ["show_safes","Safes","sw"],
+  ["show_security","Defense panels","sw"],
+  ["sec_detail","Point and slot detail","sw"],
+  ["sec_raided","Show raided blocks","sw"]
+],
+radar: [
+  ["radar_on","Radar","sw"],
+  ["radar_range","Radar range (m)","range",25,500,5],
+  ["radar_world","Radar: world markers","sw"],
+  ["radar_players","Radar: players","sw"],
+  ["show_fuses","HUD: fuses","sw"],
+  ["show_status","HUD: status and legend","sw"]
+],
+body: [
+  ["skin_on","Override skin","sw"],
+  ["skin_pick","Skin","pick",0],
+  ["hair_on","Override hair","sw"],
+  ["hair_pick","Hair","pick",1],
+  ["mask_on","Override mask","sw"],
+  ["mask_pick","Mask","pick",2],
+  ["tattoo_on","Override tattoo","sw"],
+  ["tattoo_pick","Tattoo","pick",3],
+  ["bag_on","Override bag","sw"],
+  ["bag_pick","Bag","pick",4],
+  ["aspect_on","Force aspect ratio","sw"],
+  ["aspect_w","Aspect width","range",1,64,1],
+  ["aspect_h","Aspect height","range",1,64,1]
+],
+colors: [],
+settings: [["enabled","Master switch","sw"]]
+};
+
+var COLOR_NAMES = ["Player","Clan","Police","Dead","Name","Weapon","Distance","Armor",
+                   "Loot","Container","Door","Cargo","Safe","Security","Aim FOV"];
+
+/* ---- build the page ---------------------------------------------------- */
+var tabsEl = document.getElementById("tabs");
+var pagesEl = document.getElementById("pages");
+
+function rowNode(def){
+  var key = def[0], label = def[1], type = def[2];
+  var d = document.createElement("div");
+  d.className = "row";
+  var l = document.createElement("span");
+  l.className = "lbl"; l.textContent = label;
+  d.appendChild(l);
+  var el;
+  if (type === "note"){
+    d.className = "row note";
+    return d;
+  }
+  if (type === "sw"){
+    el = document.createElement("button");
+    el.className = "sw"; el.type = "button";
+    el.addEventListener("click", function(){
+      var on = el.classList.contains("on") ? 0 : 1;
+      el.classList.toggle("on", !!on);   /* show it now; the host echo confirms */
+      send("set:" + key + ":" + on);
+    });
+  } else if (type === "range"){
+    el = document.createElement("input");
+    el.type = "range"; el.min = def[3]; el.max = def[4]; el.step = def[5];
+    var out = document.createElement("output");
+    var sliderRaf = null;
+    el.addEventListener("input", function(){
+      out.textContent = el.value;
+      if (!sliderRaf) {
+        sliderRaf = requestAnimationFrame(function(){
+          send("set:" + key + ":" + el.value);
+          sliderRaf = null;
+        });
+      }
+    });
+    el.addEventListener("change", function(){
+      if (sliderRaf) { cancelAnimationFrame(sliderRaf); sliderRaf = null; }
+      send("set:" + key + ":" + el.value);
+    });
+    el.__out = out;
+  } else if (type === "sel" || type === "pick"){
+    el = document.createElement("select");
+    if (type === "sel"){
+      def[3].forEach(function(o){
+        var op = document.createElement("option");
+        op.value = o[0]; op.textContent = o[1];
+        el.appendChild(op);
+      });
+    } else {
+      el.dataset.cat = def[3];
+    }
+    el.addEventListener("change", function(){
+      send("set:" + key + ":" + el.value);
+    });
+  } else {
+    el = document.createElement("input");
+    el.type = "number"; el.min = 0; el.max = 255;
+    el.addEventListener("change", function(){
+      send("set:" + key + ":" + el.value);
+    });
+  }
+  el.dataset.key = key;
+  d.appendChild(el);
+  if (el.__out) d.appendChild(el.__out);
+  return d;
+}
+
+TABS.forEach(function(t, i){
+  var b = document.createElement("button");
+  b.className = "tab" + (i === 0 ? " on" : "");
+  b.type = "button"; b.textContent = t[1]; b.dataset.tab = t[0];
+  b.addEventListener("click", function(){
+    document.querySelectorAll(".tab").forEach(function(x){ x.classList.remove("on"); });
+    document.querySelectorAll(".page").forEach(function(x){ x.classList.remove("on"); });
+    b.classList.add("on");
+    document.getElementById("pg-" + t[0]).classList.add("on");
+  });
+  tabsEl.appendChild(b);
+
+  var pg = document.createElement("div");
+  pg.className = "page" + (i === 0 ? " on" : "");
+  pg.id = "pg-" + t[0];
+  pagesEl.appendChild(pg);
+  var grid = document.createElement("div");
+  grid.className = "grid";
+  pg.appendChild(grid);
+  ROWS[t[0]].forEach(function(def){ grid.appendChild(rowNode(def)); });
+
+  if (t[0] === "colors"){
+    grid.style.gridTemplateColumns = "1fr";
+    COLOR_NAMES.forEach(function(name, idx){
+      var c = document.createElement("div");
+      c.className = "col";
+      var l = document.createElement("span");
+      l.className = "lbl"; l.textContent = name;
+      var inp = document.createElement("input");
+      inp.type = "color"; inp.value = "#ffffff"; inp.dataset.color = idx;
+      var code = document.createElement("code");
+      inp.addEventListener("input", function(){
+        var v = inp.value;
+        send("col:" + idx + ":" + parseInt(v.substr(1,2),16) + "," +
+             parseInt(v.substr(3,2),16) + "," + parseInt(v.substr(5,2),16));
+        code.textContent = v;
+      });
+      c.appendChild(l); c.appendChild(inp); c.appendChild(code);
+      grid.appendChild(c);
+    });
+  }
+  if (t[0] === "settings"){
+    var bar = document.createElement("div");
+    bar.style.display = "flex"; bar.style.gap = "10px"; bar.style.marginTop = "18px";
+    [["save","SAVE"],["load","LOAD"]].forEach(function(a){
+      var b2 = document.createElement("button");
+      b2.className = "btn"; b2.type = "button"; b2.textContent = a[1];
+      b2.addEventListener("click", function(){ send("act:" + a[0]); });
+      bar.appendChild(b2);
+    });
+    pg.appendChild(bar);
+    var note = document.createElement("p");
+    note.style.cssText = "margin-top:14px;color:#6a6a6a;font-size:11px;line-height:1.6";
+    note.textContent = "Settings live in RRX.cfg next to the overlay. Only server-" +
+      "accepted values survive: loot vacuum, chams and skeleton data are client-side.";
+    pg.appendChild(note);
+  }
+});
+
+/* ---- incoming messages ------------------------------------------------- */
+function hex2(n){ var s = n.toString(16); return s.length < 2 ? "0" + s : s; }
+
+function applyState(st){
+  document.querySelectorAll("[data-key]").forEach(function(el){
+    var k = el.dataset.key;
+    if (!(k in st)) return;
+    if (el.classList.contains("sw")){
+      el.classList.toggle("on", !!st[k]);
+    } else if (el.tagName === "SELECT" || el.tagName === "INPUT" ||
+               el.tagName === "TEXTAREA"){
+      if (document.activeElement !== el) el.value = st[k];
+      if (el.__out) el.__out.textContent = st[k];
+    }
+    if (el.__out && document.activeElement !== el) el.__out.textContent = st[k];
+  });
+  if (st.colors){
+    document.querySelectorAll("[data-color]").forEach(function(inp){
+      var c = st.colors[inp.dataset.color];
+      if (!c) return;
+      var v = "#" + hex2(c[0]) + hex2(c[1]) + hex2(c[2]);
+      inp.value = v;
+      var code = inp.parentElement.querySelector("code");
+      if (code) code.textContent = v;
+    });
+  }
+}
+
+function applyTelem(t){
+  var los = ["LOS: off", "LOS: loading", "LOS: ready"][t.los] || "LOS: ?";
+  document.getElementById("telem").textContent =
+    "pid " + t.pid + "   targets " + t.targets + "   " + los +
+    "   markers " + t.markers + "   loot " + t.loot +
+    (t.capped ? "   capped " + t.capped : "");
+}
+
+var toastTimer = 0;
+function applyToast(text){
+  var el = document.getElementById("toast");
+  el.textContent = text;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.textContent = ""; }, 2600);
+}
+
+function applyCat(kind, ids){
+  document.querySelectorAll("select[data-cat='" + kind + "']").forEach(function(sel){
+    sel.innerHTML = "";
+    var list = ids ? ids.split("\n") : [];
+    if (!list.length){
+      var op = document.createElement("option");
+      op.value = 0; op.textContent = "(no ids)";
+      sel.appendChild(op);
+      return;
+    }
+    list.forEach(function(id, i){
+      var op = document.createElement("option");
+      op.value = i; op.textContent = id;
+      sel.appendChild(op);
+    });
+  });
+}
+
+/* WebView2 raises host messages on chrome.webview, not on window. A window
+ * listener is never called, which leaves the footer on "waiting for game" and
+ * makes every switch snap back because the state echo is dropped. */
+function onHostMessage(e){
+  var m = String((e && e.data) || "");
+  if (m.indexOf("state:") === 0){
+    try { applyState(JSON.parse(m.substr(6))); } catch (err) {}
+  } else if (m.indexOf("telem:") === 0){
+    try { applyTelem(JSON.parse(m.substr(6))); } catch (err) {}
+  } else if (m.indexOf("toast:") === 0){
+    applyToast(m.substr(6));
+  } else if (m.indexOf("cat:") === 0){
+    var parts = m.substr(4).split(":");
+    applyCat(parts[0], parts.slice(1).join(":"));
+  }
+}
+if (host) host.addEventListener("message", onHostMessage);
+else window.addEventListener("message", onHostMessage);
+
+/* ---- window chrome ----------------------------------------------------- */
+document.getElementById("x").addEventListener("click", function(){
+  send("close:");
+});
+
+var dragging = false, sx = 0, sy = 0;
+var dragRaf = null, pendingDrag = null;
+document.getElementById("bar").addEventListener("mousedown", function(e){
+  if (e.target.id === "x") return;
+  dragging = true; sx = e.screenX; sy = e.screenY;
+  e.preventDefault();
+});
+window.addEventListener("mousemove", function(e){
+  if (!dragging) return;
+  pendingDrag = "drag:" + sx + "," + sy + "," + (e.screenX - sx) + "," + (e.screenY - sy);
+  if (!dragRaf) {
+    dragRaf = requestAnimationFrame(function(){
+      if (pendingDrag) send(pendingDrag);
+      dragRaf = null;
+    });
+  }
+});
+window.addEventListener("mouseup", function(){
+  if (dragging) {
+    if (dragRaf) { cancelAnimationFrame(dragRaf); dragRaf = null; }
+    send("dragend:");
+  }
+  dragging = false;
+});
+
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") { send("close:"); return; }
+  if (document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "SELECT")) return;
+  var num = parseInt(e.key, 10);
+  if (num >= 1 && num <= TABS.length) {
+    var targetTab = tabsEl.children[num - 1];
+    if (targetTab) targetTab.click();
+  }
+});
+
+/* Ask for the catalogue once the page is alive. */
+send("hello:");
+setTimeout(function(){ send("catq:"); }, 60);
+</script>
+</body></html>

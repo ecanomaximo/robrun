@@ -1,13 +1,13 @@
 @echo off
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
-title CHEEKOS - map the driver
+title MR - map the driver
 
 set "BADHASH=EC3A09682C300747DC3029C4BACA5728B01403B20E2193A802BF80DBB14166AA"
 
 echo.
 echo ============================================================
-echo   CHEEKOS - map the kernel driver
+echo   MR - map the kernel driver
 echo ============================================================
 echo.
 
