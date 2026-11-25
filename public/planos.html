@@ -159,13 +159,40 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
 .menu-tab{flex:none;background:rgba(6,18,13,.75);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font:600 .82rem var(--body);color:var(--muted);cursor:pointer;transition:all .15s}
 .menu-tab:hover{color:var(--paper);border-color:var(--hot)}
 .menu-tab.active{background:rgba(30,158,87,.22);border-color:var(--hot);color:var(--hot-hi)}
-.menu-screen-box{position:relative;margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:975/638}
+.menu-screen-box{position:relative;margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:975/638;cursor:zoom-in}
 .menu-screen-box img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .15s ease}
+.zoom-hint-pill{position:absolute;bottom:8px;right:8px;background:rgba(6,18,13,0.88);backdrop-filter:blur(6px);border:1px solid var(--hot);color:var(--hot-hi);font-size:.72rem;font-weight:600;padding:4px 9px;border-radius:999px;pointer-events:none;display:inline-flex;align-items:center;gap:5px;box-shadow:0 2px 8px rgba(0,0,0,.6)}
 .menu-thumbs{display:flex;gap:8px;margin-top:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
 .menu-thumb{flex:none;width:76px;aspect-ratio:975/638;border-radius:6px;overflow:hidden;border:1px solid var(--line);cursor:pointer;opacity:.55;transition:all .15s;background:#000;padding:0}
 .menu-thumb:hover{opacity:.9;border-color:var(--hot)}
 .menu-thumb.active{opacity:1;border-color:var(--hot-hi);box-shadow:0 0 8px rgba(94,227,154,.35)}
 .menu-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Lightbox Modal */
+.lightbox-modal{position:fixed;inset:0;z-index:9999;background:rgba(2,10,6,0.96);backdrop-filter:blur(10px);display:none;flex-direction:column;opacity:0;transition:opacity .2s ease;user-select:none}
+.lightbox-modal.open{display:flex;opacity:1}
+.lightbox-bar{flex:none;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(6,18,13,0.92);border-bottom:1px solid var(--line);z-index:10}
+.lightbox-title{color:var(--hot-hi);font:700 .92rem var(--cond);letter-spacing:.04em;text-transform:uppercase}
+.lightbox-actions{display:flex;align-items:center;gap:10px}
+.lightbox-btn{background:rgba(30,158,87,0.2);border:1px solid var(--hot);color:var(--hot-hi);border-radius:8px;padding:6px 12px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s}
+.lightbox-btn:hover{background:var(--hot);color:#fff}
+.lightbox-close{width:36px;height:36px;border-radius:8px;background:rgba(6,18,13,0.8);border:1px solid var(--line);color:var(--paper);font-size:1.2rem;display:grid;place-items:center;cursor:pointer;transition:all .15s}
+.lightbox-close:hover{border-color:var(--hot);color:var(--hot-hi)}
+.lightbox-stage{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:12px;touch-action:pan-x pan-y pinch-zoom;cursor:grab;-webkit-overflow-scrolling:touch}
+.lightbox-stage:active{cursor:grabbing}
+.lightbox-stage img{max-width:96%;max-height:82vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.8);transition:all .2s ease}
+.lightbox-stage img.zoomed{max-width:none;max-height:none;width:190%;cursor:move}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(6,18,13,0.75);border:1px solid var(--line);color:var(--paper);font-size:1.8rem;display:grid;place-items:center;cursor:pointer;z-index:10;transition:all .15s}
+.lightbox-nav:hover{border-color:var(--hot);color:var(--hot-hi);background:rgba(6,18,13,0.95)}
+.lightbox-nav.prev{left:14px}
+.lightbox-nav.next{right:14px}
+.lightbox-hint{flex:none;text-align:center;padding:8px 12px;font-size:.74rem;color:var(--muted);background:rgba(6,18,13,0.92);border-top:1px solid var(--line)}
+@media(max-width:600px){
+  .lightbox-nav{width:36px;height:36px;font-size:1.4rem}
+  .lightbox-nav.prev{left:6px}
+  .lightbox-nav.next{right:6px}
+  .lightbox-stage img.zoomed{width:220%}
+}
 
 .buy{grid-area:buy;position:sticky;top:118px;background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px}
 .buy h1{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:800;color:var(--hot-hi)}
@@ -387,8 +414,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
           <button type="button" class="menu-tab" data-idx="8">Body</button>
           <button type="button" class="menu-tab" data-idx="9">Colors</button>
         </div>
-        <div class="menu-screen-box">
+        <div class="menu-screen-box" id="menu-screen-box" title="Toque para ampliar em tela cheia">
           <img id="menu-main-img" src="img/menu/01_players.png" alt="Visual do menu - Players" loading="lazy">
+          <span class="zoom-hint-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg> Toque para zoom</span>
         </div>
         <div class="menu-thumbs" aria-label="Miniaturas do menu">
           <button type="button" class="menu-thumb active" data-idx="0" title="Players"><img src="img/menu/01_players.png" alt="Players"></button>
@@ -403,7 +431,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
           <button type="button" class="menu-thumb" data-idx="9" title="Colors"><img src="img/menu/10_colors.png" alt="Colors"></button>
         </div>
       </div>
-    </div>
     </div>
   </div>
 
@@ -550,6 +577,22 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   </div>
 </footer>
 
+<div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Visualizador ampliado de imagem">
+  <div class="lightbox-bar">
+    <span class="lightbox-title" id="lightbox-title">Aba 1 de 10: PLAYERS</span>
+    <div class="lightbox-actions">
+      <button type="button" class="lightbox-btn" id="lightbox-zoom-toggle">🔍 2x Zoom</button>
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Fechar">✕</button>
+    </div>
+  </div>
+  <button type="button" class="lightbox-nav prev" id="lightbox-prev" aria-label="Anterior">‹</button>
+  <button type="button" class="lightbox-nav next" id="lightbox-next" aria-label="Próximo">›</button>
+  <div class="lightbox-stage" id="lightbox-stage">
+    <img id="lightbox-img" src="" alt="Imagem ampliada" draggable="false">
+  </div>
+  <div class="lightbox-hint">Toque duplo na imagem para ampliar • Arraste para navegar pelos detalhes</div>
+</div>
+
 <button class="toggle" type="button" aria-pressed="false" id="toggle" style="display:none">Ver o outro lado (N)</button>
 <script>
 (() => {
@@ -685,8 +728,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
   const screenBox = document.querySelector('.menu-screen-box');
   if (screenBox) {
     let touchStartX = 0;
+    let didSwipe = false;
     screenBox.addEventListener('touchstart', e => {
       touchStartX = e.changedTouches[0].clientX;
+      didSwipe = false;
+    }, { passive: true });
+    screenBox.addEventListener('touchmove', () => {
+      didSwipe = true;
     }, { passive: true });
     screenBox.addEventListener('touchend', e => {
       const diff = e.changedTouches[0].clientX - touchStartX;
@@ -696,9 +744,112 @@ footer{border-top:1px solid var(--line);padding:56px 0 32px;color:var(--muted);f
         } else {
           setMenuScreen((activeMenuIdx - 1 + menuScreens.length) % menuScreens.length);
         }
+      } else if (!didSwipe) {
+        openLightbox(activeMenuIdx);
+      }
+    }, { passive: true });
+    screenBox.addEventListener('click', e => {
+      openLightbox(activeMenuIdx);
+    });
+  }
+
+  // Lightbox Zoom Modal
+  const lbModal = document.getElementById('lightbox-modal');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbTitle = document.getElementById('lightbox-title');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+  const lbZoomToggle = document.getElementById('lightbox-zoom-toggle');
+  const lbStage = document.getElementById('lightbox-stage');
+
+  let isZoomed = false;
+
+  function toggleZoom() {
+    isZoomed = !isZoomed;
+    if (lbImg) lbImg.classList.toggle('zoomed', isZoomed);
+    if (lbZoomToggle) lbZoomToggle.textContent = isZoomed ? '🔍 1x (Menos)' : '🔍 2x Zoom';
+  }
+
+  function openLightbox(idx) {
+    setMenuScreen(idx);
+    if (!menuScreens[idx]) return;
+    if (lbImg) lbImg.src = menuScreens[idx].src;
+    if (lbTitle) lbTitle.textContent = menuScreens[idx].title;
+    isZoomed = false;
+    if (lbImg) lbImg.classList.remove('zoomed');
+    if (lbZoomToggle) lbZoomToggle.textContent = '🔍 2x Zoom';
+    if (lbModal) {
+      lbModal.classList.add('open');
+      lbModal.setAttribute('aria-hidden', 'false');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (lbModal) {
+      lbModal.classList.remove('open');
+      lbModal.setAttribute('aria-hidden', 'true');
+    }
+    document.body.style.overflow = '';
+  }
+
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lbZoomToggle) lbZoomToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleZoom();
+  });
+
+  if (lbPrev) lbPrev.addEventListener('click', e => {
+    e.stopPropagation();
+    openLightbox((activeMenuIdx - 1 + menuScreens.length) % menuScreens.length);
+  });
+  if (lbNext) lbNext.addEventListener('click', e => {
+    e.stopPropagation();
+    openLightbox((activeMenuIdx + 1) % menuScreens.length);
+  });
+
+  // Duplo toque na imagem no celular para zoom
+  if (lbImg) {
+    let lastTap = 0;
+    lbImg.addEventListener('touchend', e => {
+      const cur = Date.now();
+      if (cur - lastTap < 300) {
+        toggleZoom();
+        e.preventDefault();
+      }
+      lastTap = cur;
+    });
+    lbImg.addEventListener('dblclick', toggleZoom);
+  }
+
+  // Swipe horizontal dentro do modal
+  if (lbStage) {
+    let lbTouchX = 0;
+    lbStage.addEventListener('touchstart', e => {
+      lbTouchX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    lbStage.addEventListener('touchend', e => {
+      if (isZoomed) return;
+      const diff = e.changedTouches[0].clientX - lbTouchX;
+      if (Math.abs(diff) > 45) {
+        if (diff < 0) {
+          openLightbox((activeMenuIdx + 1) % menuScreens.length);
+        } else {
+          openLightbox((activeMenuIdx - 1 + menuScreens.length) % menuScreens.length);
+        }
       }
     }, { passive: true });
   }
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (lbModal && lbModal.classList.contains('open')) {
+      if (e.key === 'ArrowLeft') openLightbox((activeMenuIdx - 1 + menuScreens.length) % menuScreens.length);
+      if (e.key === 'ArrowRight') openLightbox((activeMenuIdx + 1) % menuScreens.length);
+    }
+  });
 })();
 </script>
 </body>
